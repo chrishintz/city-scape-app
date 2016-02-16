@@ -10,7 +10,7 @@ Python and Django Installation
 
 3. then type ‘pyvenv cityscapeenv’, and then ‘source cityscapeenv/bin/activate’
   - type ‘python’ to make sure you are using python3
-  
+
 4. exit python3 and then type ‘pip install Django==1.9.2’ in your terminal (upgrade pip if necessary)
 
 5. enter python again, test to see if Django is working by typing ‘import django; print(django.get_version())’ in your terminal, ‘1.9.2’ should be returned
@@ -21,3 +21,14 @@ Python and Django Installation
 references:
   - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
   - https://docs.djangoproject.com/en/1.9/intro/tutorial01/
+
+## Install Sass Processor
+  `pip install libsass django-compressor django-sass-processor`
+  In templates include this:
+  `{% load sass_tags %}
+
+  <link href="{% sass_src 'myapp/css/mystyle.scss' %}" rel="stylesheet"
+  type="text/css" />`
+
+  #### References:
+  - https://github.com/jrief/django-sass-processor
