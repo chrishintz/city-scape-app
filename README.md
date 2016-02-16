@@ -18,7 +18,7 @@ Python and Django Installation
 6. to start your server, type ‘python manage.py runserver’ in your terminal
   - your server will run on localhost:8000
 
-7. if you stop your server, before restarting, type 'workon cityscapeenv' (cityscapeenv = name of your environment) to get the environment up and running.
+7. if you stop your server, before restarting, type 'source cityscapeenv/bin/activate' (cityscapeenv = name of your environment) to get the environment up and running.
 
 references:
   - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
