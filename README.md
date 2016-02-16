@@ -10,13 +10,15 @@ Python and Django Installation
 
 3. then type ‘pyvenv cityscapeenv’, and then ‘source cityscapeenv/bin/activate’
   - type ‘python’ to make sure you are using python3
-  
+
 4. exit python3 and then type ‘pip install Django==1.9.2’ in your terminal (upgrade pip if necessary)
 
 5. enter python again, test to see if Django is working by typing ‘import django; print(django.get_version())’ in your terminal, ‘1.9.2’ should be returned
 
 6. to start your server, type ‘python manage.py runserver’ in your terminal
   - your server will run on localhost:8000
+
+7. if you stop your server, before restarting, type 'workon cityscapeenv' (cityscapeenv = name of your environment) to get the environment up and running.
 
 references:
   - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
