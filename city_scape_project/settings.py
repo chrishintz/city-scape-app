@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sass_processor',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -53,6 +54,14 @@ MIDDLEWARE_CLASSES = [
 ROOT_URLCONF = 'city_scape_project.urls'
 
 TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [os.path.join(BASE_DIR, 'templates/jinja2')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'environment': 'city_scape_project.jinja2.environment',
+        },
+    },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],

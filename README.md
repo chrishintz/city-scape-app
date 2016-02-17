@@ -18,7 +18,9 @@
 6. to start your server, type `python manage.py runserver` in your terminal
   - your server will run on localhost:8000
 
+7. if you stop your server, before restarting, type 'source cityscapeenv/bin/activate' (cityscapeenv = name of your environment) to get the environment up and running.
 
+references:
 ## To install dependencies:
   - **requirements.txt** is like a Gemfile – it's in your root directory and lists all the extensions (and their versions) that make your project go.
 
@@ -31,13 +33,22 @@
 
       - Or if you were to start from a total blank slate, you could `touch requirements.txt` from the command line, installing it in the root directory, and then manually enter your dependencies
 
-      - Followed by `pip install -r requirements.txt` or `pip install -U -r requirements.txt`  
+      - Followed by `pip install -r requirements.txt` or `pip install -U -r requirements.txt`
 
       #### References on Dependencies:
       - http://stackoverflow.com/questions/12069336/does-django-have-an-equivalent-of-railss-bundle-install
       - https://devcenter.heroku.com/articles/python-pip
       - https://pip.pypa.io/en/latest/user_guide/#requirements-files
 
+## Install Sass Processor
+  `pip install libsass django-compressor django-sass-processor`
+  In templates include this:
+  `{% load sass_tags %}
+
+  <link href="{% sass_src 'myapp/css/mystyle.scss' %}" rel="stylesheet"
+  type="text/css" />`
+
+  - https://github.com/jrief/django-sass-processor
 
 ## References:
   - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
