@@ -40,15 +40,8 @@ references:
       - https://devcenter.heroku.com/articles/python-pip
       - https://pip.pypa.io/en/latest/user_guide/#requirements-files
 
-## Install Sass Processor
-  `pip install libsass django-compressor django-sass-processor`
-  In templates include this:
-  `{% load sass_tags %}
-
-  <link href="{% sass_src 'myapp/css/mystyle.scss' %}" rel="stylesheet"
-  type="text/css" />`
-
-  - https://github.com/jrief/django-sass-processor
+## Sass Processor
+  https://github.com/jrief/django-sass-processor
 
 ## References:
   - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
