@@ -1,4 +1,5 @@
 from twython import Twython
+from django.conf import settings
 
 class Tweet:
 
@@ -10,7 +11,7 @@ class Tweet:
 
     @classmethod
     def search(self, term):
-        twitter = Twython("", "")
+        twitter = Twython(settings.TWITTER_API_KEY, settings.TWITTER_API_SECRET)
         tweets = twitter.search(q= term)
         new_tweets = []
         for tweet in tweets["statuses"]:
