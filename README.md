@@ -18,6 +18,9 @@
 6. to start your server, type `python manage.py runserver` in your terminal
   - your server will run on localhost:8000
 
+7. if you stop your server, before restarting, type 'source cityscapeenv/bin/activate' (cityscapeenv = name of your environment) to get the environment up and running.
+
+references:
 ## To install dependencies:
   - **requirements.txt** is like a Gemfile – it's in your root directory and lists all the extensions (and their versions) that make your project go.
 
@@ -45,7 +48,6 @@
   <link href="{% sass_src 'myapp/css/mystyle.scss' %}" rel="stylesheet"
   type="text/css" />`
 
-  #### References:
   - https://github.com/jrief/django-sass-processor
 
 ## References:
