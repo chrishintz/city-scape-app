@@ -12,7 +12,7 @@ class Tweet:
     @classmethod
     def search(self, term):
         twitter = Twython(settings.TWITTER_API_KEY, settings.TWITTER_API_SECRET)
-        tweets = twitter.search(q= term)
+        tweets = twitter.search(q= term, result_type = "recent", count= 1000)
         new_tweets = []
         for tweet in tweets["statuses"]:
             new_tweets.append(Tweet(tweet))
