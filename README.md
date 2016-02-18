@@ -55,6 +55,17 @@ references:
  in the app.css file in compiled_css/ directory, they will be removed when you run
  the sass --watch... command
 
+## Install Mongo
+  `pip install pymongo` and `brew install mongodb`
+  To access Mongo server type `mongod` in your terminal at the root of your project (city-scape-app)
+
+  - http://api.mongodb.org/python/current/tutorial.html
+
+  Typing `mongo` in your terminal takes your to the MongoDB Shell.  You can see a list of everything in your database in this shell by doing the following:
+  - `use cityscape`
+  - `collection = db.cityscape`
+  - `collection.find()`
+
 ## References:
   - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
   - https://docs.djangoproject.com/en/1.9/intro/tutorial01/
