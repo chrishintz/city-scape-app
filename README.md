@@ -46,13 +46,15 @@
     - https://pip.pypa.io/en/latest/user_guide/#requirements-files
 
 ## Styling w/ SASS, Bourbon + Neat
+  #### SASS:
+ - cd into project directory
  - `gem install sass`
  - To use it:
-   - to run the compiler type this: `sass --watch assets/sass/app.scss:assets/compiled_css/app.css`
+   - To run the compiler type this: `sass --watch assets/sass/app.scss:assets/compiled_css/app.css`
     - keep it running while you make changes in the
-      scss files so you can see the changes reflected in the browser. **NB: you have to start this every time you start up your project.**
-   - new files go under `assets/sass`
-   - add the name of the file to the `app.scss`, for example:
+      scss files so you can see the changes reflected in the browser. **NB: you have to start this every time you start up your project, if you want SASS changes to be reflected.**
+   - New SASS files go under `assets/sass`
+   - Add the name of the file to the `app.scss`, for example:
      ```
      @import 'header';
      ```
@@ -61,7 +63,19 @@
  the sass --watch... command
 
 
- - make sure you've cd'd into project directory
+  #### Bourbon & Neat: 
+ - make sure you're still in project directory
  - `gem install bourbon`
  - `gem install neat`
  - reload homepage to ensure bourbon & neat styling apply to view
+
+## Install Mongo
+  `pip install pymongo` and `brew install mongodb`
+  To access Mongo server type `mongod` in your terminal at the root of your project (city-scape-app)
+
+  - http://api.mongodb.org/python/current/tutorial.html
+
+  Typing `mongo` in your terminal takes your to the MongoDB Shell.  You can see a list of everything in your database in this shell by doing the following:
+  - `use cityscape`
+  - `collection = db.cityscape`
+  - `collection.find()`
