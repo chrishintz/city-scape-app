@@ -99,6 +99,16 @@
     #### References for Tweepy:
       - http://tweepy.readthedocs.org/en/v3.5.0/api.html#saved-searches-methods
 
-## References:
-  - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
-  - https://docs.djangoproject.com/en/1.9/intro/tutorial01/
+## Algorithmia Usage
+  - ```pip install algorithmia```
+  - add API key for Algorithmia to `.env` file `ALGORITHMIA_API_KEY=....`
+    #### Examples:
+    - Enter python shell
+      ```python manage.py shell```
+    - Import Algorithm class from algorithm.py file:
+      - ```from cityscape.algorithm import Algorithm```
+    - Tweet_content and algo_path are 2 arguments that the search method needs
+    - Search for an algorithm
+      - ```a = Algorithm.search("I'm the tweet content", 'demo/Hello/0.1.1')```
+    - After the search is done `a` will contain the result of the algorithm
+  - different algorithms that can be used are here: https://algorithmia.com/algorithms
