@@ -40,8 +40,20 @@ references:
       - https://devcenter.heroku.com/articles/python-pip
       - https://pip.pypa.io/en/latest/user_guide/#requirements-files
 
-## Sass Processor
-  https://github.com/jrief/django-sass-processor
+## Sass
+ - gem install sass
+ To use it:
+ - to run the compiler type this: `sass --watch assets/sass/app.scss:assets/compiled_css/app.css`
+  - keep it running while you make changes in the
+    scss files so you can see the changes reflected in the browser
+ - new files go under `assets/sass`
+ - add the name of the file to the `app.scss`
+   ```
+   @import 'header';
+   ```
+ _NOTE:_ make the changes to stylesheets in the sass directory only. If you make changes
+ in the app.css file in compiled_css/ directory, they will be removed when you run
+ the sass --watch... command
 
 ## References:
   - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
