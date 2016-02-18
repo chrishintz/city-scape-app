@@ -5,7 +5,7 @@ import time
 from cityscape.tweet import Tweet
 
 print (time.strftime("%Y/%m/%d"))
-
+time = (time.strftime("%Y/%m/%d"))
 
 input = "Karen"
 client = Algorithmia.client('simA/10GUxSaf8N3a8CWDf6LKmd1')
@@ -13,15 +13,17 @@ algo = client.algo('demo/Hello/0.1.1')
 print (algo.pipe(input))
 
 
-
-
 class Traffic:
 
-    def __init__(self, dictionary):
-        self.text = dictionary["text"]
-        self.created_at = dictionary["created_at"]
-        self.geo = dictionary["geo"]
-        self.id = dictionary["id"]
+    def __init__(self, tweets):
+        self.tweets = tweets
+
+
+    def to_s(self):
+        text = []
+        for t in self.tweets:
+            text.append(t.text)
+        return ",".join(text)
 
     @classmethod
     def search(self, term):
@@ -43,4 +45,5 @@ class Traffic:
 
     @classmethod
     def recent_tweets(self):
-        return Traffic(Tweet.search("traffic"))    
+        # time = time.strftime("%Y/%m/%d")
+        return Traffic(Tweet.search("lang:en -filter:retweets -filter:links traffic seattle since:\n{time}."))
