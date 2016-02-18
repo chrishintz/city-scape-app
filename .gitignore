@@ -3,3 +3,5 @@ cityscapeenv
 .env
 
 __pycache__/
+
+*.pyc
