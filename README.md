@@ -20,29 +20,30 @@
 
 7. if you stop your server, before restarting, type 'source cityscapeenv/bin/activate' (cityscapeenv = name of your environment) to get the environment up and running.
 
-references:
+### references:
+- http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
+- https://docs.djangoproject.com/en/1.9/intro/tutorial01/
+
 ## To install dependencies:
-  - **requirements.txt** is like a Gemfile – it's in your root directory and lists all the extensions (and their versions) that make your project go.
+  - **requirements.txt** is similar to a Gemfile – it's in your root directory and lists all the extensions (and their versions) that make your project go.
 
   - Since we are working from a merged branch where **requirements.txt** already exists, just `pip install -r requirements.txt` to install dependencies (like `bundle install` in Rails)
 
-  - `pip install -U -r requirements.txt` will *update* dependencies if there are new versions.
+      - **There may be dependency conflicts between packages, in which case the mass
+      install command above will not actually install every package listed in the
+      requirements file.** You'll find this to be the case if you are told a package
+      or module is missing when trying to start your server. In this case, just individually install the package, and try starting your server again. Repeat one-by-one if multiple modules are missing.
 
-  - **When building out a new Django app**:
-    - `pip freeze > requirements.txt` creates a snapshot of all the dependencies you’ve installed to date.
+      - NB: `pip install -U -r requirements.txt` will *update* dependencies if there are new versions.
 
-      - Or if you were to start from a total blank slate, you could `touch requirements.txt` from the command line, installing it in the root directory, and then manually enter your dependencies
+  #### **When updating your branch with Master**:
+    - `pip freeze > requirements.txt` creates a snapshot of all the dependencies you’ve installed to date. **Run this command when you are ready to create a pull request for your branch**.
+      - This will capture any new packages you've installed in the development of your branch's feature, and will ensure they are not overwritten when the branch is pulled into Master.
 
-      - Followed by `pip install -r requirements.txt` or `pip install -U -r requirements.txt`
-
-      #### References on Dependencies:
-      - http://stackoverflow.com/questions/12069336/does-django-have-an-equivalent-of-railss-bundle-install
-      - https://devcenter.heroku.com/articles/python-pip
-      - https://pip.pypa.io/en/latest/user_guide/#requirements-files
+    #### References on Dependencies:
+    - http://stackoverflow.com/questions/12069336/does-django-have-an-equivalent-of-railss-bundle-install
+    - https://devcenter.heroku.com/articles/python-pip
+    - https://pip.pypa.io/en/latest/user_guide/#requirements-files
 
 ## Sass Processor
   https://github.com/jrief/django-sass-processor
-
-## References:
-  - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
-  - https://docs.djangoproject.com/en/1.9/intro/tutorial01/
