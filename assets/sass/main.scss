@@ -1,3 +1,17 @@
 .snapshot {
-  border: 12px dashed green
+  border: 12px dashed green;
+}
+
+// this and accompanying HTML can be deleted once we all see how
+// SASS -> CSS compilation works in Django!
+
+.bourbon-neat-test {
+  @include outer-container;
+
+  .test-6-column {
+    @include span-columns(6);
+    @include omega(2n);
+    font-family: $helvetica;
+    background-color: rgb(171, 171, 171);
+  }
 }
