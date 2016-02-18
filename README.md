@@ -66,6 +66,25 @@ references:
   - `collection = db.cityscape`
   - `collection.find()`
 
+## Tweepy Usage
+  - ```pip install tweepy```
+    #### Examples:
+    - Enter python shell
+      ```python manage.py shell```
+    - Import Tweet class from tweet.py file:
+      - ```from cityscape.tweet import Tweet```
+    - Search for term ```t = Tweet.search("tacos")```
+    - You can access a tweet's id: ```t[10].id```
+      - returns a tweet id from the [10] index (can use this to input a value into the optional ```since_id``` argument)
+    - Since_id is an optional argument to be entered into the search
+      - ```t = Tweet.search("tacos",since_id=700443357609242625)```
+    - ```len(t)``` will count the number tweets returned
+    - The default limit for the # of tweets returned is 100 however this too can be changed as an optional argument as well. 
+      - ```t = Tweet.search("tacos", count=7)``` <-- this returns the most recent 7 tweets that match your search
+
+    #### References for Tweepy:
+      - http://tweepy.readthedocs.org/en/v3.5.0/api.html#saved-searches-methods
+
 ## References:
   - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
   - https://docs.djangoproject.com/en/1.9/intro/tutorial01/
