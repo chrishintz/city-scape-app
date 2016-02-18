@@ -20,9 +20,9 @@
 
 7. if you stop your server, before restarting, type 'source cityscapeenv/bin/activate' (cityscapeenv = name of your environment) to get the environment up and running.
 
-### references:
-- http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
-- https://docs.djangoproject.com/en/1.9/intro/tutorial01/
+  #### References:
+  - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
+  - https://docs.djangoproject.com/en/1.9/intro/tutorial01/
 
 ## To install dependencies:
   - **requirements.txt** is similar to a Gemfile – it's in your root directory and lists all the extensions (and their versions) that make your project go.
@@ -45,21 +45,23 @@
     - https://devcenter.heroku.com/articles/python-pip
     - https://pip.pypa.io/en/latest/user_guide/#requirements-files
 
-## Sass
- - gem install sass
- To use it:
- - to run the compiler type this: `sass --watch assets/sass/app.scss:assets/compiled_css/app.css`
-  - keep it running while you make changes in the
-    scss files so you can see the changes reflected in the browser
- - new files go under `assets/sass`
- - add the name of the file to the `app.scss`
-   ```
-   @import 'header';
-   ```
+## Styling w/ SASS, Bourbon + Neat
+ - `gem install sass`
+ - To use it:
+   - to run the compiler type this: `sass --watch assets/sass/app.scss:assets/compiled_css/app.css`
+    - keep it running while you make changes in the
+      scss files so you can see the changes reflected in the browser. **NB: you have to start this every time you start up your project.**
+   - new files go under `assets/sass`
+   - add the name of the file to the `app.scss`, for example:
+     ```
+     @import 'header';
+     ```
  _NOTE:_ make the changes to stylesheets in the sass directory only. If you make changes
  in the app.css file in compiled_css/ directory, they will be removed when you run
  the sass --watch... command
 
-## References:
-  - http://www.marinamele.com/2014/07/install-python3-on-mac-os-x-and-use-virtualenv-and-virtualenvwrapper.html
-  - https://docs.djangoproject.com/en/1.9/intro/tutorial01/
+
+ - make sure you've cd'd into project directory
+ - `gem install bourbon`
+ - `gem install neat`
+ - reload homepage to ensure bourbon & neat styling apply to view
