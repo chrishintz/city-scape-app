@@ -4,4 +4,6 @@ cityscapeenv
 
 __pycache__/
 
-*.pyc
+.DS_Store
+.pyc
+.sass-cache

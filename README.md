@@ -40,15 +40,20 @@ references:
       - https://devcenter.heroku.com/articles/python-pip
       - https://pip.pypa.io/en/latest/user_guide/#requirements-files
 
-## Install Sass Processor
-  `pip install libsass django-compressor django-sass-processor`
-  In templates include this:
-  `{% load sass_tags %}
-
-  <link href="{% sass_src 'myapp/css/mystyle.scss' %}" rel="stylesheet"
-  type="text/css" />`
-
-  - https://github.com/jrief/django-sass-processor
+## Sass
+ - gem install sass
+ To use it:
+ - to run the compiler type this: `sass --watch assets/sass/app.scss:assets/compiled_css/app.css`
+  - keep it running while you make changes in the
+    scss files so you can see the changes reflected in the browser
+ - new files go under `assets/sass`
+ - add the name of the file to the `app.scss`
+   ```
+   @import 'header';
+   ```
+ _NOTE:_ make the changes to stylesheets in the sass directory only. If you make changes
+ in the app.css file in compiled_css/ directory, they will be removed when you run
+ the sass --watch... command
 
 ## Install Mongo
   `pip install pymongo` and `brew install mongodb`
