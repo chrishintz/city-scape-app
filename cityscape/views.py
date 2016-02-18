@@ -5,7 +5,6 @@ from cityscape.yelling import Yelling
 
 # from cityscape.weather import Weather
 
-
 def index(request):
     env = Environment(loader=PackageLoader('cityscape', 'templates'))
     template = env.get_template('jinja2/index.html')

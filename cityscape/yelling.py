@@ -13,4 +13,5 @@ class Yelling:
 
     @classmethod
     def recent_tweets(self):
-        return Yelling(Tweet.search("filter:safe -if -? -considering -consideration -thinking -filter:links moving to seattle"))
+        return Yelling(Tweet.search("filter:safe -if -? -considering -consideration -thinking -filter:links 'moving to seattle'"))
+        
