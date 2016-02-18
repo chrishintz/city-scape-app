@@ -133,3 +133,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets')]
 
 TWITTER_API_KEY = os.environ.get('TWITTER_API_KEY')
 TWITTER_API_SECRET = os.environ.get('TWITTER_API_SECRET')
+
+ALGORITHMIA_API_KEY = os.environ.get('ALGORITHMIA_API_KEY')
