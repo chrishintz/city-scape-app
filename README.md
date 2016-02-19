@@ -46,6 +46,7 @@
     - https://pip.pypa.io/en/latest/user_guide/#requirements-files
 
 ## Styling w/ SASS, Bourbon + Neat
+
   #### SASS:
  - cd into project directory
  - `gem install sass`
