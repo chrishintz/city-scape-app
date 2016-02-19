@@ -11,7 +11,6 @@ def index(request):
     env = Environment(loader=PackageLoader('cityscape', 'templates'))
     template = env.get_template('jinja2/index.html')
     return HttpResponse(template.render())
-    # HttpResponse("Hello, World")
 
 
 def traffic(request):

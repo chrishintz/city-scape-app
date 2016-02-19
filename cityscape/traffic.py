@@ -3,9 +3,9 @@ from django.conf import settings
 import Algorithmia
 import time
 from cityscape.tweet import Tweet
+from pymongo import MongoClient
+from cityscape.mongo import Mongo
 
-print (time.strftime("%Y/%m/%d"))
-time = (time.strftime("%Y/%m/%d"))
 
 input = "Karen"
 client = Algorithmia.client('simA/10GUxSaf8N3a8CWDf6LKmd1')
@@ -24,10 +24,25 @@ class Traffic:
         for t in self.tweets:
             text.append(t.text)
         return ",".join(text)
+        return len(text)
+
+
+    @classmethod
+    def recent_tweets(self):
+
+    p = Tweet.search("lang:en -filter:retweets -filter:links traffic seattle since_id:700434391286165507")
+    db.cityscape.insert_many(p
+
+    )
+
+
+        return Traffic(Tweet.search("lang:en -filter:retweets -filter:links traffic seattle since_id:700434391286165507"))
+
+
 
     @classmethod
     def search(self, term):
-        self.time = time.strftime("%Y/%m/%d")
+        # self.time = time.strftime("%Y/%m/%d")
         # term = "lang:en -filter:retweets -filter:links traffic seattle since:\n{self.time}."
         term = "lang:en -filter:retweets -filter:links traffic seattle."
         twitter = Twython(settings.TWITTER_API_KEY, settings.TWITTER_API_SECRET)
@@ -43,7 +58,4 @@ class Traffic:
         return new_tweets
         return len(new_tweets)
 
-    @classmethod
-    def recent_tweets(self):
-        # time = time.strftime("%Y/%m/%d")
-        return Traffic(Tweet.search("lang:en -filter:retweets -filter:links traffic seattle since:\n{time}."))
+        #make method to put in mongodb
