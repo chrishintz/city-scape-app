@@ -26,14 +26,13 @@ class Yell:
 
     @classmethod
     def update_data(self):
-        newest_tweet = Mongo.collection.find({"module": "Yell"}).sort("published_at", pymongo.DESCENDING)[0]
-
-        if newest_tweet:
-            since_id = newest_tweet["tweet_id"]
+        newest_tweets = Mongo.collection.find({"module": "Yell"}).sort("published_at", pymongo.DESCENDING)
+        newest_tweets = list(newest_tweets)
+        if newest_tweets:
+            since_id = newest_tweets[0]["tweet_id"]
         else:
             since_id = None
 
-        print(since_id)
         tweets = Tweet.search(
             "-filter:links -filter:retweets geocode:47.609403608607785,-122.35061645507812,25mi",
             count=1000,
