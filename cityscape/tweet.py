@@ -18,7 +18,7 @@ class Tweet:
         # construct the API instance
         api = tweepy.API(auth)
 
-        tweets = tweepy.Cursor(api.search, q= term, since_id=since_id).items(count)
+        tweets = tweepy.Cursor(api.search, q= term, since_id=since_id, count=100).items(count)
 
         new_tweets = []
         for tweet in tweets:
