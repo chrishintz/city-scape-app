@@ -1,7 +1,35 @@
+html {
+  box-sizing: border-box; }
+
+*, *::after, *::before {
+  box-sizing: inherit; }
+
 body {
   background: pink; }
 
 .snapshot {
   border: 12px dashed green; }
+
+.bourbon-neat-test {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  .bourbon-neat-test::after {
+    clear: both;
+    content: "";
+    display: table; }
+  .bourbon-neat-test .test-6-column {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    background-color: #ababab; }
+    .bourbon-neat-test .test-6-column:last-child {
+      margin-right: 0; }
+    .bourbon-neat-test .test-6-column:nth-child(2n) {
+      margin-right: 0; }
+    .bourbon-neat-test .test-6-column:nth-child(2n+1) {
+      clear: left; }
 
 /*# sourceMappingURL=app.css.map */
