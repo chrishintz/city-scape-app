@@ -1,6 +1,3 @@
-from twython import Twython
-from mongo import Mongo
-
 from django.conf import settings
 import tweepy
 
