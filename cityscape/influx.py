@@ -1,42 +1,49 @@
 from cityscape.tweet import Tweet
+from cityscape.mongo import Mongo
+import pymongo
+from datetime import datetime, timedelta
 
 class Influx:
-    def __init__(self,tweets):
-        self.tweets = tweets
-
-    def to_s(self):
-        text = []
-        for t in self.tweets:
-            text.append(t.text)
-        return ",".join(text)
-
     @classmethod
-
-    def average(self, hours=24):
+    def recent_count(self, hours = 720):
         start = datetime.today() - timedelta(hours = hours)
         end   = datetime.today()
-        pipe = [{"$match": {"module": "Influx", "published_at": {"$gte": start, "$lte": end}}}, {'$group': {'_id': None, 'total': {'$avg': '$score'}}}]
+        pipe = [{"$match": {"module": "Influx", "published_at": {"$gte": start, "$lte": end}}}]
+        day_count = Mongo.collection.count(pipeline = pipe)
+        return day_count
+
+    @classmethod
+    def average(self, hours=8640):
+        start = datetime.today() - timedelta(hours = hours)
+        end   = datetime.today()
+        pipe = [
+            {"$match": {"module": "Influx", "published_at": {"$gte": start, "$lte": end}}},
+            {'$group': {'_id': {"month": {"$month": "$published_at"}}, 'total': {'$sum': 1}}}
+        ]
         agg = Mongo.collection.aggregate(pipeline=pipe)
         return list(agg)
 
-    def recent_tweets(self):
-        tweets = Influx(Tweet.search("filter:safe -filter:retweets -if -? -considering -consideration -thinking -may  -filter:links 'moving to seattle'",count = 100,))
+    @classmethod
+    def update_data(self):
+        newest_tweets = Mongo.collection.find({"module": "Influx"}).sort("published_at", pymongo.DESCENDING)
+        if newest_tweets.count() > 0:
+            since_id = newest_tweets[0]["tweet_id"]
+        else:
+            since_id = None
+
+        tweets = Tweet.search("filter:safe -filter:retweets -if -? -considering -consideration -thinking -may  -filter:links 'moving to seattle'",count = 20000, since_id=since_id)
         for tweet in tweets:
-            tweet.created_at,
-            tweet.text,
-            tweet.id,
-
-            # upper_count = 0
-            # for char in list(tweet.text):
-            #     if 65 <= ord(char) <= 90:
-            #         upper_count += 1
-            # percentage = (float(upper_count) / float(len(tweet.text))) * 100
-            # if percentage < 20: percentage = 0
-
-        Mongo.collection.insert_one({
-            "module": "Yell",
-            "published_at": tweet.created_at,
-            "content": tweet.text,
-            "tweet_id": tweet.id,
+        
+            Mongo.collection.insert_one({
+                "module": "Influx",
+                "published_at": tweet.created_at,
+                "content": tweet.text,
+                "tweet_id": tweet.id,
             # "score": percentage
-        })
+            })
+        return len(tweets)
+
+    @classmethod
+    def score(self):
+        return self.recent_count()
+        return self.average()

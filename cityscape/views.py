@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
 from jinja2 import Environment, PackageLoader
-from cityscape.yelling import Yelling
 from cityscape.influx import Influx
 from cityscape.mongo import Mongo
 from django.http import JsonResponse
@@ -17,5 +16,3 @@ def index(request):
 def influx(request):
     return JsonResponse({"made": "by"})
     # put in mongodb object in jsonresponse
-
-    
