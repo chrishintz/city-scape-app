@@ -1,61 +1,48 @@
-from twython import Twython
-from django.conf import settings
-import Algorithmia
-import time
 from cityscape.tweet import Tweet
-from pymongo import MongoClient
 from cityscape.mongo import Mongo
-
-
-input = "Karen"
-client = Algorithmia.client('simA/10GUxSaf8N3a8CWDf6LKmd1')
-algo = client.algo('demo/Hello/0.1.1')
-print (algo.pipe(input))
+import pymongo
+from datetime import datetime, timedelta
 
 
 class Traffic:
 
-    def __init__(self, tweets):
-        self.tweets = tweets
+    @classmethod
+    def average(self):
+        pipe = [{"$match": {"module": "Traffic"}}, {'$group': {'_id': None, 'total': {'$avg': '$score'}}}]
+        agg = Mongo.collection.aggregate(pipeline=pipe)
+        return list(agg)
 
-
-    def to_s(self):
-        text = []
-        for t in self.tweets:
-            text.append(t.text)
-        return ",".join(text)
-        return len(text)
+    @classmethod
+    def recent_average(self, hours=24):
+        start = datetime.today() - timedelta(hours = hours)
+        end   = datetime.today()
+        pipe = [{"$match": {"module": "Traffic", "published_at": {"$gte": start, "$lte": end}}}, {'$group': {'_id': None, 'total': {'$avg': '$score'}}}]
+        agg = Mongo.collection.aggregate(pipeline=pipe)
+        return list(agg)
 
 
     @classmethod
-    def recent_tweets(self):
+    def update_data(self):
+        newest_tweet = Mongo.collection.find({"module": "Traffic"}).sort("published_at", pymongo.DESCENDING)
+        if newest_tweet:
+            since_id = newest_tweet[0]["tweet_id"]
+        else:
+            since_id = None
+        print(since_id)
+        tweets = Tweet.search(
+        "seattle traffic -filter:links -filter:retweets geocode:47.609403608607785,-122.35061645507812,25mi",
+        count=1000,
+        since_id=since_id
+        )
+        # count = len(tweets)
+        for tweet in tweets:
 
-    p = Tweet.search("lang:en -filter:retweets -filter:links traffic seattle since_id:700434391286165507")
-    db.cityscape.insert_many(p
+            Mongo.collection.insert_one({
+                "module": "Traffic",
+                "published_at": tweet.created_at,
+                "content": tweet.text,
+                "tweet_id": tweet.id,
+                "score": 1
+        })
 
-    )
-
-
-        return Traffic(Tweet.search("lang:en -filter:retweets -filter:links traffic seattle since_id:700434391286165507"))
-
-
-
-    @classmethod
-    def search(self, term):
-        # self.time = time.strftime("%Y/%m/%d")
-        # term = "lang:en -filter:retweets -filter:links traffic seattle since:\n{self.time}."
-        term = "lang:en -filter:retweets -filter:links traffic seattle."
-        twitter = Twython(settings.TWITTER_API_KEY, settings.TWITTER_API_SECRET)
-        tweets = twitter.search(q = term, result_type = "recent", count= 1000)
-        new_tweets = []
-        for tweet in tweets["statuses"]:
-            new_tweets.append(Traffic(tweet))
-        # input = new_tweets[1].text
-        # client = Algorithmia.client('simA/10GUxSaf8N3a8CWDf6LKmd1')
-        # algo = client.algo('StanfordNLP/SentimentAnalysis/0.1.0')
-        # print (algo.pipe(input))
-        # return (algo.pipe(input))
-        return new_tweets
-        return len(new_tweets)
-
-        #make method to put in mongodb
+        return True
