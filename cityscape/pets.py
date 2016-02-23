@@ -15,7 +15,7 @@ class Pets:
     def recent_average(self, hours=24):
         start = datetime.today() - timedelta(hours = hours)
         end   = datetime.today()
-        pipe  = [{"$match": {"module": "Pets", "published_at": {"$gte": start, "lte": end}}}, {'group': {'_id': None, 'total': {'$avg': '$score'}}}]
+        pipe  = [{"$match": {"module": "Pets", "published_at": {"$gte": start, "$lte": end}}}, {'$group': {'_id': None, 'total': {'$avg': '$score'}}}]
         agg   = Mongo.collection.aggregate(pipeline=pipe)
         return list(agg)
 
@@ -28,14 +28,13 @@ class Pets:
         else:
             since_id = None
 
-        print(since_id)
         dog_tweets = Tweet.search(
-            "seattle dog OR dogs seattle OR dog's seattle OR puppy seattle OR pooch seattle OR mutt seattle",
+            "filter:safe seattle dog",
             count=1000,
             since_id=since_id
         )
         cat_tweets = Tweet.search(
-            "seattle cat OR cats seattle OR cat's seattle OR kitty seattle OR kitten seattle OR feline seattle",
+            "filter:safe seattle cat",
             count=1000,
             since_id=since_id
         )
