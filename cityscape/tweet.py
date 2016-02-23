@@ -23,7 +23,7 @@ class Tweet:
         # construct the API instance
         api = tweepy.API(auth)
 
-        tweets = tweepy.Cursor(api.search, q= term, since_id=since_id).items(count)
+        tweets = tweepy.Cursor(api.search, q= term, since_id=since_id, count=100, result_type="recent").items(count)
 
 >>>>>>> 223db0a2fcbac668667608e9bbc031b69e6ae54f
         new_tweets = []
