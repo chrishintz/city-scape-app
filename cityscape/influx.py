@@ -21,7 +21,8 @@ class Influx:
             {'$group': {'_id': {"month": {"$month": "$published_at"}}, 'total': {'$sum': 1}}}
         ]
         agg = Mongo.collection.aggregate(pipeline=pipe)
-        return list(agg)
+        return len(list(agg))
+        # how to count object that's insides the array....elements of the object inside an array?
 
     @classmethod
     def update_data(self):
@@ -33,7 +34,7 @@ class Influx:
 
         tweets = Tweet.search("filter:safe -filter:retweets -if -? -considering -consideration -thinking -may  -filter:links 'moving to seattle'",count = 20000, since_id=since_id)
         for tweet in tweets:
-        
+
             Mongo.collection.insert_one({
                 "module": "Influx",
                 "published_at": tweet.created_at,
@@ -45,5 +46,7 @@ class Influx:
 
     @classmethod
     def score(self):
-        return self.recent_count()
-        return self.average()
+        if self.recent_count() > self.average():
+            print("The Amount of People Moving to Seattle is Higher Than Average")
+        else:
+            print("The Amount of People Moving to Seattle is Lower Than Normal")
