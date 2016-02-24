@@ -29,12 +29,12 @@ class Pets:
             since_id = None
 
         dog_tweets = Tweet.search(
-            "filter:safe seattle dog",
+            "filter:safe seattle dog OR dog's OR dogs OR puppy OR pup OR pooch OR mutt",
             count=1000,
             since_id=since_id
         )
         cat_tweets = Tweet.search(
-            "filter:safe seattle cat",
+            "filter:safe seattle cat OR cat's OR cats OR kitty OR kitten OR feline",
             count=1000,
             since_id=since_id
         )
