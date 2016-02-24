@@ -68,7 +68,7 @@ class Weather:
         for key in Weather.dictionary:
             total_count_dictionary[key] = 0
 
-        for item in Mongo.collection.find({"published_at": {"$gte": datetime.today() - timedelta(hours = 3)}}):
+        for item in Mongo.collection.find({"module": "Weather", "published_at": {"$gte": datetime.today() - timedelta(hours = 3)}}):
             for key, value in item["score"].items():
                 total_count_dictionary[key] += value
 
