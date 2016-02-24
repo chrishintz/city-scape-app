@@ -13,8 +13,9 @@ class Happy:
 
     @classmethod
     def chart(self):
-        percentage = Happy.recent_average()[0]["total"] + 1 / 2
-        return percentage * 100
+        ans = Happy.recent_average()[0]["total"] + 1
+        percentage = ans/2 * 100
+        return percentage
 
     @classmethod
     def average(self):
@@ -43,7 +44,7 @@ class Happy:
                 "-filter:links lang:en -filter:retweets geocode:47.609403608607785,-122.35061645507812,16mi",
                 count=10000,
                 since_id=since_id
-                )   
+                )
 
         for tweet in tweets:
             tw = tweet.text.encode("latin-1", "ignore").decode("latin-1")
