@@ -14,10 +14,10 @@ class Traffic:
             '_id': { "month": { "$month": "$published_at" }, "hour": {"$hour": "$published_at"}, "day": {"$dayOfMonth": "$published_at"}, "year": { "$year": "$published_at" }},
             "total": {'$sum': 1 }
         }} ]
-        #will need to count by hour
         offset = 8
         real_count = []
         count = Mongo.collection.aggregate(pipeline=pipe)
+        #only averaging tweets from 6 am to 10 pm
         for everything in count:
             if -2 <= everything["_id"]["hour"]-offset <= 14:
                 real_count.append(everything)
@@ -26,7 +26,7 @@ class Traffic:
             if -2 <= hour["_id"]["hour"]-offset <= 14:
                 sum += hour["total"]
         return sum/ len(real_count)
-             #how to determine if a number is in a range?? #then sum it if so. How many thing summing so I can divide by that number
+
 
     @classmethod
     def recent_average(self, hours=1):
@@ -37,7 +37,7 @@ class Traffic:
 
     @classmethod
     def comparison(self):
-        return self.recent_average()/self.average()    
+        return self.recent_average()/self.average()
 
 
     @classmethod
@@ -53,7 +53,6 @@ class Traffic:
         count=20000,
         since_id=since_id
         )
-        # count = len(tweets)
         for tweet in tweets:
             Mongo.collection.insert_one({
                 "module": "Traffic",
@@ -62,11 +61,6 @@ class Traffic:
                 "tweet_id": tweet.id,
                 "score": 1
         })
-
-        @classmethod
-        def comparison(self):
-            return self.recent_average()/self.average()
-
 
 
         return True
