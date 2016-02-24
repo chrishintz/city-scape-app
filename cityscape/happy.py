@@ -13,7 +13,8 @@ class Happy:
 
     @classmethod
     def chart(self):
-        return {"score": 2, "me": 5}
+        percentage = Happy.recent_average()[0]["total"] + 1 / 2
+        return percentage * 100
 
     @classmethod
     def average(self):
