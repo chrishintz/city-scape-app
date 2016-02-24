@@ -1,5 +1,5 @@
-.snapshot {
-  border: 12px dashed green;
+.container {
+  @include outer-container;
 }
 
 // this and accompanying HTML can be deleted once we all see how

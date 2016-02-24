@@ -1,0 +1,4 @@
+.happy {
+  background: sand;
+  @include span-columns(6);
+}

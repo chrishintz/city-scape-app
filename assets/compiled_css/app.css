@@ -7,8 +7,14 @@ html {
 body {
   background: pink; }
 
-.snapshot {
-  border: 12px dashed green; }
+.container {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto; }
+  .container::after {
+    clear: both;
+    content: "";
+    display: table; }
 
 .bourbon-neat-test {
   max-width: 68em;
@@ -31,5 +37,14 @@ body {
       margin-right: 0; }
     .bourbon-neat-test .test-6-column:nth-child(2n+1) {
       clear: left; }
+
+.happy {
+  background: sand;
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 48.82117%; }
+  .happy:last-child {
+    margin-right: 0; }
 
 /*# sourceMappingURL=app.css.map */
