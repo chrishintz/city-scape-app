@@ -4,9 +4,17 @@ import pymongo
 from datetime import datetime, timedelta
 from cityscape.algorithm import Algorithm
 
+
 class Happy:
 
-    algo_path = 'nlp/SentimentAnalysis/0.1.2'
+    # algo_path = 'nlp/SentimentAnalysis/0.1.2'
+    algo_path = 'mtman/SentimentAnalysis/0.1.1'
+
+
+    @classmethod
+    def chart(self):
+        percentage = Happy.recent_average()[0]["total"] + 1 / 2
+        return percentage * 100
 
     @classmethod
     def average(self):
@@ -49,3 +57,4 @@ class Happy:
             })
 
         return True
+
