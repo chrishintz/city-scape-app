@@ -3,8 +3,7 @@ from django.template import loader
 from jinja2 import Environment, PackageLoader
 from django.http import JsonResponse
 from cityscape.pets import Pets
-
-# from cityscape.weather import Weather
+from cityscape.weather import Weather
 
 
 def index(request):
@@ -17,3 +16,4 @@ def pet_score(request):
 
 # def weather(request):
 #     return HttpResponse(Weather.recent_tweets().to_s())  ##doesn't work, needs to be a string
+    return HttpResponse(template.render(weather = ''.join((Weather.current_weather(), ".png"))))
