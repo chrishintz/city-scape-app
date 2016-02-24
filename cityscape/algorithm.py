@@ -1,6 +1,7 @@
 import Algorithmia
 from django.conf import settings
 
+
 class Algorithm:
     @classmethod
     def search(self, tweet_content, algo_path):

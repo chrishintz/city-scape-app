@@ -1,10 +1,12 @@
 from django.http import HttpResponse
 from django.template import loader
 from jinja2 import Environment, PackageLoader
+<<<<<<< HEAD
 from cityscape.yell import Yell
 from cityscape.traffic import Traffic
 
-# from cityscape.weather import Weather
+
+from cityscape.weather import Weather
 
 
 def index(request):
@@ -18,3 +20,5 @@ def traffic(request):
 
 def yell(request):
     return HttpResponse(Yell.recent_tweets().to_s())
+
+    return HttpResponse(template.render(weather = ''.join((Weather.current_weather(), ".png"))))
