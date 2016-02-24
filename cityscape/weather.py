@@ -11,7 +11,7 @@ class Weather:
         "windy": ["windy", "breezy", "wind", "winds"],
         "sunny": ["sunny", "sun", "partly cloudy"],
         "snowy": ["snowy", "snow"],
-        "cloudy": ["cloudy", "clouds", "overcast"],
+        "cloudy": ["cloudy", "clouds", "overcast", "cloud"],
         "thunder": ["thunder"],
         "lightening": ["lightening"]
     }
@@ -73,7 +73,7 @@ class Weather:
                 total_count_dictionary[key] += value
 
         return max(total_count_dictionary, key=total_count_dictionary.get)
-        # print(total_count_dictionary)
+        # return(total_count_dictionary)
 
     @classmethod
     def extract_wind_in_mph(self, tweet_content):
