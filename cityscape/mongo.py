@@ -10,3 +10,6 @@ class Mongo:
     # tells mongo database server to create new collection (a.k.a. table) called 'test_collection' inside 'test_database'
     # mongo server returns collection object called 'collection'
     collection = db['tweet_stats']
+
+    def insert_tweet(self, tweet):
+        collection.insert_one({"tweet_id": tweet.id, "created_at": tweet.created_at, "tweet_text": tweet.text})
