@@ -11,7 +11,7 @@ class Weather:
         "windy": ["windy", "breezy", "wind", "winds"],
         "sunny": ["sunny", "sun", "partly cloudy"],
         "snowy": ["snowy", "snow"],
-        "cloudy": ["cloudy", "clouds", "overcast"],
+        "cloudy": ["cloudy", "clouds", "overcast", "cloud"],
         "thunder": ["thunder"],
         "lightening": ["lightening"]
     }
@@ -68,12 +68,12 @@ class Weather:
         for key in Weather.dictionary:
             total_count_dictionary[key] = 0
 
-        for item in Mongo.collection.find({"published_at": {"$gte": datetime.today() - timedelta(hours = 3)}}):
+        for item in Mongo.collection.find({"module": "Weather", "published_at": {"$gte": datetime.today() - timedelta(hours = 3)}}):
             for key, value in item["score"].items():
                 total_count_dictionary[key] += value
 
         return max(total_count_dictionary, key=total_count_dictionary.get)
-        # print(total_count_dictionary)
+        # return(total_count_dictionary)
 
     @classmethod
     def extract_wind_in_mph(self, tweet_content):
