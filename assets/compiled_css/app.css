@@ -39,11 +39,11 @@ body {
       clear: left; }
 
 .happy {
-  background: sand;
   float: left;
   display: block;
   margin-right: 2.35765%;
-  width: 48.82117%; }
+  width: 48.82117%;
+  background: #EFF8FF; }
   .happy:last-child {
     margin-right: 0; }
 
