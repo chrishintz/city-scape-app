@@ -14,5 +14,5 @@ def index(request):
 
 
 def influx(request):
-    return JsonResponse({"made": "by"})
+    return JsonResponse({"module": "Influx"})
     # put in mongodb object in jsonresponse

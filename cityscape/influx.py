@@ -12,6 +12,7 @@ class Influx:
         day_count = Mongo.collection.count(pipeline = pipe)
         return day_count
 
+
     @classmethod
     def average(self, hours=8640):
         start = datetime.today() - timedelta(hours = hours)
@@ -21,8 +22,8 @@ class Influx:
             {'$group': {'_id': {"month": {"$month": "$published_at"}}, 'total': {'$sum': 1}}}
         ]
         agg = Mongo.collection.aggregate(pipeline=pipe)
-        return len(list(agg))
-        # how to count object that's insides the array....elements of the object inside an array?
+        return list(agg)[0]['total']
+
 
     @classmethod
     def update_data(self):
@@ -47,6 +48,8 @@ class Influx:
     @classmethod
     def score(self):
         if self.recent_count() > self.average():
-            print("The Amount of People Moving to Seattle is Higher Than Average")
+            print("The Amount of People Moving to Seattle is Higher Than Normal: Current Count = (#self.recent_count)")
+        elif self.recent_count() < self.average():
+            print("The Amount of People Moving to Seattle is Lower Than Normal: Current Count   =  (#self.recent_count)")
         else:
-            print("The Amount of People Moving to Seattle is Lower Than Normal")
+            print("The Amount of People Moving to Seattle is the Same as Normal: Current Count = (#self.recent_count)")
