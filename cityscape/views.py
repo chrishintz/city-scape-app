@@ -18,5 +18,5 @@ def pet_score(request):
     return JsonResponse(Pets.recent_average(), safe=False)
 
 def influx(request):
-    return JsonResponse({"module": "Influx"})
+    return JsonResponse(Influx.score())
     # put in mongodb object in jsonresponse
