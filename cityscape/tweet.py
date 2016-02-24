@@ -1,4 +1,3 @@
-from twython import Twython
 from django.conf import settings
 import tweepy
 
