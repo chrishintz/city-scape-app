@@ -33,7 +33,7 @@ class Influx:
         else:
             since_id = None
 
-        tweets = Tweet.search("filter:safe -filter:retweets -if -? -considering -consideration -thinking -may  -filter:links 'moving to seattle'",count = 20000, since_id=since_id)
+        tweets = Tweet.search("filter:safe since:2014-12-21 -filter:retweets -if -? -considering -consideration -thinking -may  -filter:links 'moving to seattle'",count = 20000, since_id=since_id)
         for tweet in tweets:
 
             Mongo.collection.insert_one({
@@ -47,9 +47,14 @@ class Influx:
 
     @classmethod
     def score(self):
-        if self.recent_count() > self.average():
-            print("The Amount of People Moving to Seattle is Higher Than Normal: Current Count = (#self.recent_count)")
-        elif self.recent_count() < self.average():
-            print("The Amount of People Moving to Seattle is Lower Than Normal: Current Count   =  (#self.recent_count)")
+        recent_count = self.recent_count()
+        average = self.average()
+        # %s replaces this value with the following value outside of the string
+        print ("The Current 6 Month Average of People Moving to Seattle, Based on Twitter Data is: %s" %average)
+        if recent_count > average:
+            print("The Amount of People Moving to Seattle is Higher Than Normal: Current Count = %s" %recent_count)
+        elif recent_count < average:
+            print("The Amount of People Moving to Seattle is Lower Than Normal: Current Count   = %s" %recent_count)
         else:
-            print("The Amount of People Moving to Seattle is the Same as Normal: Current Count = (#self.recent_count)")
+            print("The Amount of People Moving to Seattle is the Same as Normal: Current Count = %s" %recent_count)
+            return recent_count

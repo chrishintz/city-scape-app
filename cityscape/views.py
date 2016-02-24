@@ -13,8 +13,7 @@ def index(request):
     env = Environment(loader=PackageLoader('cityscape', 'templates'))
     template = env.get_template('jinja2/index.html')
     return HttpResponse(template.render(weather = ''.join((Weather.current_weather(), ".png"))))
-
-
+    
 def influx(request):
     return JsonResponse({"module": "Influx"})
     # put in mongodb object in jsonresponse
