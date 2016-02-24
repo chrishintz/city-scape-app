@@ -7,7 +7,8 @@ from cityscape.algorithm import Algorithm
 
 class Happy:
 
-    algo_path = 'nlp/SentimentAnalysis/0.1.2'
+    # algo_path = 'nlp/SentimentAnalysis/0.1.2'
+    algo_path = 'mtman/SentimentAnalysis/0.1.1'
 
 
     @classmethod
