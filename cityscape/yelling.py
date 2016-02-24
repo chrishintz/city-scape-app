@@ -1,19 +1,19 @@
-from cityscape.tweet import Tweet
-
-class Yelling:
-
-    def __init__(self, tweets):
-        self.tweets = tweets
-
-    def to_s(self):
-        text = []
-        for t in self.tweets:
-            text.append(t.text)
-        return ",".join(text)
-
-    @classmethod
-    def recent_tweets(self):
-        return Yelling(Tweet.search("yelling"))
+# from cityscape.tweet import Tweet
+#
+# class Yelling:
+#
+#     def __init__(self, tweets):
+#         self.tweets = tweets
+#
+#     def to_s(self):
+#         text = []
+#         for t in self.tweets:
+#             text.append(t.text)
+#         return ",".join(text)
+#
+#     @classmethod
+#     def recent_tweets(self):
+#         return Yelling(Tweet.search("yelling"))
 
 
 
