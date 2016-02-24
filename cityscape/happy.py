@@ -4,9 +4,15 @@ import pymongo
 from datetime import datetime, timedelta
 from cityscape.algorithm import Algorithm
 
+
 class Happy:
 
     algo_path = 'nlp/SentimentAnalysis/0.1.2'
+
+
+    @classmethod
+    def chart(self):
+        return {"score": 2, "me": 5}
 
     @classmethod
     def average(self):
@@ -49,3 +55,4 @@ class Happy:
             })
 
         return True
+
