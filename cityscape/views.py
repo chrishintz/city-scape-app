@@ -1,9 +1,14 @@
 from django.http import HttpResponse
 from django.template import loader
 from jinja2 import Environment, PackageLoader
+
+from cityscape.influx import Influx
+from cityscape.mongo import Mongo
+from django.http import JsonResponse
 from cityscape.yell import Yell
 from cityscape.traffic import Traffic
 from cityscape.weather import Weather
+# from cityscape.weather import Weather
 
 
 def index(request):
@@ -19,3 +24,8 @@ def yell(request):
     return HttpResponse(Yell.recent_tweets().to_s())
 
     return HttpResponse(template.render(weather = ''.join((Weather.current_weather(), ".png"))))
+
+
+def influx(request):
+    return JsonResponse({"module": "Influx"})
+    # put in mongodb object in jsonresponse
