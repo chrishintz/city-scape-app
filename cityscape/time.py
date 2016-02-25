@@ -21,6 +21,13 @@ class Time:
         self.tweet_id     = tweet_id
 
     @classmethod
+    def find(self, tweet_id):
+        self.tweet_id = tweet_id
+
+        instance = Mongo.collection.find_one({"module":"Time", "tweet_id": tweet_id})
+        return instance
+
+    @classmethod
     def update_data(self):
         newest_tweets = Mongo.collection.find({"module": "Time"}).sort("published_at", pymongo.DESCENDING)
         newest_tweets = list(newest_tweets)
@@ -29,16 +36,13 @@ class Time:
         else:
             since_id = None
 
-        # collecting all the tweets within specific search terms
         tweets = Tweet.search(
             "-filter:links -filter:retweets geocode:47.609403608607785,-122.35061645507812,300mi",
             count=20000,
             since_id=since_id
         )
 
-        # Go through all of the tweets:
         for tweet in tweets:
-            # make instance of Time, assign that to a variable, then call instance methods on it.
             time_instance = Time(
                 module       = "Time",
                 published_at = tweet.created_at,
@@ -48,6 +52,8 @@ class Time:
 
             # use the assign_scores instance method to assign #'s for time-related keywords
             count_dictionary = time_instance.assign_scores()
+
+            time_guess = time_instance.time_guess()
 
             # ADDITIONAL INSTANCE METHODS – which need to be specified outside of the update_data() method
 
@@ -72,41 +78,26 @@ class Time:
 
         return True
 
-        ##### instance methods:
-        ######## (don't need to take arguments)
+    # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX INSTANCE METHODS
+    # (don't need to take arguments)
 
-        # ******** # # ******** # # ******** # # ******** # # ******** #
     def assign_scores(self):
-        # each tweet is initialized with an empty hash of keywords related
-        # to time, which we're calling 'count dictionary' after initialize/
-        # before save...
         keyword_score_dictionary = {}
 
         for key in Time.dictionary:
-            # ...and then each key is assigned to the count dictionary,
-            # with a starting value of 0
             keyword_score_dictionary[key] = 0
 
-        # split the tweet's content into a bunch of words, examine each word
         for word in self.content.split():
-            # iterate through the dictionary keys...
             for key, value in Time.dictionary.items():
-                # if the word appears in the value list...
                 if word in value:
-                    # add 1 to the score for that key in the dictionary! (for THIS TWEET ONLY)
                     keyword_score_dictionary[key] += 1
 
-        # return the complete hash so that it's available when object is saved in db
         return keyword_score_dictionary
 
-        # the above loop will happen for each word in each tweet,
-        # so tweets may have count_dictionaries with scores of
-        # multiple 1's, 0's or anything else.
+    # this method gets the highest score from count_dictionary and assigns a time guess
+    # def time_guess(self):
+    #     return self.count_dictionary
 
-        # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX INSTANCE METHODS
-
-        # time_guess = Time.analyze_text(self)
-            # this method gets the highest score from count_dictionary and assigns a time guess
 
         # check_acuracy = Time.check_accuracy(self)
             # compare time guess to published_at
