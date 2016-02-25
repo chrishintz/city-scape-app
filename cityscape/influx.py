@@ -45,22 +45,21 @@ class Influx:
 
     @classmethod
     def score(self):
-        recent_count = self.recent_count()
-        update_data = self.update_data
-        average = (self.average()/10)
+        update_data = self.update_data()
+        average = self.average()
+        average_score = (average + update_data)/10
         #tweepy counts 10 days in past
-        # %s replaces this value with the following value outside of the string
-        # return("The Current 10 Day Average of People Moving to Seattle (Based on Twitter Data) is: %s" %average)
-        return average
+        return average_score
 
     @classmethod
     def score_calc(self):
         recent_count = self.recent_count()
-        average = (self.average()/10)
+        average_score = self.score()
 
-        if recent_count > average:
+        if recent_count > average_score:
+            # %s replaces this value with the following value outside of the string
             return("The Amount of People Moving to Seattle Today is Higher Than Normal: Current Count = %s" %recent_count)
-        elif recent_count < average:
+        elif recent_count < average_score:
             return("The Amount of People Moving to Seattle is Lower Than Normal: Current Count  = %s" %recent_count)
         else:
             return("The Amount of People Moving to Seattle is the Same as Normal: Current Count = %s" %recent_count)
