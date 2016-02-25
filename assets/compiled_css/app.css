@@ -38,6 +38,11 @@ body {
     .bourbon-neat-test .test-6-column:nth-child(2n+1) {
       clear: left; }
 
+#chart-container {
+  width: 100%;
+  margin: 0 auto;
+  display: block; }
+
 .happy {
   float: left;
   display: block;

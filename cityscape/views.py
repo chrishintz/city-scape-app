@@ -12,10 +12,14 @@ from cityscape.weather import Weather
 def index(request):
     env = Environment(loader=PackageLoader('cityscape', 'templates'))
     template = env.get_template('jinja2/index.html')
-    return HttpResponse(template.render(weather = ''.join((Weather.current_weather(), ".png")), image = Happy.chart()["image"]))
+    return HttpResponse(template.render(traffic = Traffic.comparison(), weather = ''.join((Weather.current_weather(), ".png") ), image = Happy.chart()["image"]))
 
 def traffic(request):
-    return HttpResponse(Traffic.comparison())
+    env = Environment(loader=PackageLoader('cityscape', 'templates'))
+    template = env.get_template('jinja2/traffic.html')
+    # return HttpResponse(template.render())
+    return HttpResponse(template.render(traffic = Traffic.comparison()))
+    # return HttpResponse(Traffic.comparison())
 
 def chart(request):
     return JsonResponse(Happy.chart(), safe=False)
