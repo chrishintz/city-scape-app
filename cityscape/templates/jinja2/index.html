@@ -35,9 +35,16 @@
           <!-- <h2>{{ weather }}</h2> -->
           <img src="{{ STATIC_URL }}static/images/weather/{{ weather }}">
         </div>
-        <!-- <div class = "test-6-column">
-          <img src = "{{influx}}"
-        </div> -->
+
+        <div class = "test-6-column">
+          <header>Average Amount of People Moving to Seattle</header>
+          <ul>
+            <li>The Average Amount of People who are moving to Seattle, Per Day, is: {{influx}} people</li>
+            <li>(Results Based off 10 days worth of Data)</li>
+            <li>{{influx_calc}}</li>
+          </ul>
+        </div>
+
       </div>
 
       <div id="traffic-chart-container" data-traffic="{{ traffic }}" style="min-width: 310px; max-width: 400px;   height: 300px; margin: 0 auto">
