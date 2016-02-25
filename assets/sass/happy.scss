@@ -1,0 +1,25 @@
+.happy {
+  @include span-columns(6);
+  background: #EFF8FF;
+  position: relative;
+
+  canvas {
+    position: relative;
+  }
+  img {
+    position: absolute;
+    left: 28px;
+    top: 59px;
+  }
+
+  .happy-face {
+    top: 40px;
+    left: 52px;
+  }
+
+  .neutral-face {
+    border-radius: 250px;
+    top: 60px;
+    left: 63px;
+  }
+}
