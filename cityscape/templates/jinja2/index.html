@@ -22,7 +22,10 @@
       <div class="snapshot">
         <!-- placeholder text. Shows 'Jinja2 syntax' -->
         {{1 + 1}}
+      </div>
+      <div class="happy">
         <canvas id="mycanvas" width="256" height="256"></canvas>
+        <img id="happy" src="{{ STATIC_URL }}static/images/happy/{{image}}">
       </div>
       <div class="bourbon-neat-test">
         <div class="test-6-column">
@@ -32,6 +35,9 @@
           <!-- <h2>{{ weather }}</h2> -->
           <img src="{{ STATIC_URL }}static/images/weather/{{ weather }}">
         </div>
+        <!-- <div class = "test-6-column">
+          <img src = "{{influx}}"
+        </div> -->
       </div>
 
       <div id="traffic-chart-container" data-traffic="{{ traffic }}" style="min-width: 310px; max-width: 400px;   height: 300px; margin: 0 auto">
