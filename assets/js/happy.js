@@ -29,6 +29,7 @@ $(document).ready(function() {
       segmentStrokeColor : "#CF5300",
       percentageInnerCutout : 70,
       animationEasing : "easeOutQuad",
+      showTooltips: false,
       animationSteps: 200
     });
   });
