@@ -79,7 +79,7 @@
 
   Typing `mongo` in your terminal takes your to the MongoDB Shell.  You can see a list of everything in your database in this shell by doing the following:
   - `use cityscape`
-  - `collection = db.cityscape`
+  - `collection = db.tweet_stats`
   - `collection.find()`
 
 
