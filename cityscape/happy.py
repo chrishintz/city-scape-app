@@ -13,8 +13,18 @@ class Happy:
 
     @classmethod
     def chart(self):
-        percentage = Happy.recent_average()[0]["total"] + 1 / 2
-        return percentage * 100
+        ans = Happy.recent_average(1.5)[0]["total"] + 1
+        percentage = ans/2 * 100
+        # percentage = 20
+        emptiness = 100 - percentage
+        image = ""
+        if percentage < 50:
+            image = "sad.png"
+        elif percentage < 60 and percentage > 50:
+            image = "neutral.png"
+        else:
+            image = "happy.png"
+        return {"percentage": percentage, "emptiness": emptiness, "image": image}
 
     @classmethod
     def average(self):
