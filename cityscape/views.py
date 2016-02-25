@@ -13,16 +13,7 @@ from cityscape.weather import Weather
 def index(request):
     env = Environment(loader=PackageLoader('cityscape', 'templates'))
     template = env.get_template('jinja2/index.html')
-<<<<<<< HEAD
-    return HttpResponse(template.render(weather = ''.join((Weather.current_weather(), ".png"))))
-    return HttpResponse(template.render(influx_calc = ''.join((Influx.score_calc()))))
-    return HttpResponse(template.render(influx = ''.join((Influx.score()))))
-
-def traffic(request):
-    return HttpResponse(Traffic.comparison())
-=======
-    return HttpResponse(template.render(traffic = Traffic.comparison(), weather = ''.join((Weather.current_weather(), ".png") ), image = Happy.chart()["image"]))
->>>>>>> fffd4724ce50c79cd5c7035ef24908f4515e6046
+    return HttpResponse(template.render(influx_calc = Influx.score_calc(),influx =Influx.score(), traffic = Traffic.comparison(), weather = ''.join((Weather.current_weather(), ".png")), image = Happy.chart()["image"]))
 
 def traffic(request):
     env = Environment(loader=PackageLoader('cityscape', 'templates'))
