@@ -5,11 +5,10 @@ from datetime import datetime, timedelta
 
 class Influx:
     @classmethod
-    def recent_count(self, hours = 720):
+    def recent_count(self, hours = 24):
         start = datetime.today() - timedelta(hours = hours)
         end   = datetime.today()
-        pipe = [{"$match": {"module": "Influx", "published_at": {"$gte": start, "$lte": end}}}]
-        day_count = Mongo.collection.count(pipeline = pipe)
+        day_count = Mongo.collection.find({ "published_at": {"$gte": start, "$lte": end}}).count()
         return day_count
 
 
@@ -33,7 +32,7 @@ class Influx:
         else:
             since_id = None
 
-        tweets = Tweet.search("filter:safe since:2014-12-21 -filter:retweets -if -? -considering -consideration -thinking -may  -filter:links 'moving to seattle'",count = 20000, since_id=since_id)
+        tweets = Tweet.search("filter:safe -filter:retweets -if -? -considering -consideration -thinking -may  -filter:links 'moving to seattle'",count = 20000, since_id=since_id)
         for tweet in tweets:
 
             Mongo.collection.insert_one({
@@ -41,20 +40,27 @@ class Influx:
                 "published_at": tweet.created_at,
                 "content": tweet.text,
                 "tweet_id": tweet.id,
-            # "score": percentage
             })
         return len(tweets)
 
     @classmethod
     def score(self):
         recent_count = self.recent_count()
-        average = self.average()
+        update_data = self.update_data
+        average = (self.average()/10)
+        #tweepy counts 10 days in past
         # %s replaces this value with the following value outside of the string
-        print ("The Current 6 Month Average of People Moving to Seattle, Based on Twitter Data is: %s" %average)
+        # return("The Current 10 Day Average of People Moving to Seattle (Based on Twitter Data) is: %s" %average)
+        return average
+
+    @classmethod
+    def score_calc(self):
+        recent_count = self.recent_count()
+        average = (self.average()/10)
+
         if recent_count > average:
-            print("The Amount of People Moving to Seattle is Higher Than Normal: Current Count = %s" %recent_count)
+            return("The Amount of People Moving to Seattle Today is Higher Than Normal: Current Count = %s" %recent_count)
         elif recent_count < average:
-            print("The Amount of People Moving to Seattle is Lower Than Normal: Current Count   = %s" %recent_count)
+            return("The Amount of People Moving to Seattle is Lower Than Normal: Current Count  = %s" %recent_count)
         else:
-            print("The Amount of People Moving to Seattle is the Same as Normal: Current Count = %s" %recent_count)
-            return recent_count
+            return("The Amount of People Moving to Seattle is the Same as Normal: Current Count = %s" %recent_count)
