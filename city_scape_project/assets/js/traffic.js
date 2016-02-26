@@ -2,8 +2,6 @@ $(document).ready(function() {
 
 
 
-  $.get("/traffic", function (traffic) {
-
     $('#traffic-chart-container').highcharts({
 
         chart: {
@@ -96,7 +94,7 @@ $(document).ready(function() {
         },
 
         series: [{
-            name: 'Speed',
+            name: 'traffic level',
             data: [$("#traffic-chart-container").data("traffic")],
 
         }]
@@ -105,6 +103,6 @@ $(document).ready(function() {
 
 
     );
-  });
+
 
 });

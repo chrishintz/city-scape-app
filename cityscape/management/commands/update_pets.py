@@ -1,9 +1,9 @@
 from django.core.management.base import BaseCommand, CommandError
-from cityscape.weather import Weather
+from cityscape.pets import Pets
 
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-
-        print("Refreshing Weather data...")
-        Weather.update_data()
+        print("Refreshing Pet data...")
+        Pets.update_data()
+        
