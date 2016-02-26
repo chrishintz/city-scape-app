@@ -14,18 +14,28 @@ class Time:
         "late" :     ["midnight","dark"]
     }
 
-    def __init__(self, module, published_at, content, tweet_id):
+    def __init__(self, module, published_at, content, tweet_id, score = None, time_guess = None):
         self.module       = module
         self.published_at = published_at
         self.content      = content
         self.tweet_id     = tweet_id
+        self.score        = score
+        self.time_guess   = time_guess
 
     @classmethod
     def find(self, tweet_id):
         self.tweet_id = tweet_id
 
         instance = Mongo.collection.find_one({"module":"Time", "tweet_id": tweet_id})
-        return instance
+        t = Time(
+            module       = "Time",
+            published_at = instance["published_at"],
+            content      = instance["content"],
+            tweet_id     = instance["tweet_id"],
+            score        = instance["score"],
+            time_guess   = instance["time_guess"]
+        )
+        return t
 
     @classmethod
     def update_data(self):
@@ -38,7 +48,7 @@ class Time:
 
         tweets = Tweet.search(
             "-filter:links -filter:retweets geocode:47.609403608607785,-122.35061645507812,300mi",
-            count=20000,
+            count=1000,
             since_id=since_id
         )
 
@@ -51,28 +61,23 @@ class Time:
             )
 
             # use the assign_scores instance method to assign #'s for time-related keywords
-            count_dictionary = time_instance.assign_scores()
+            time_instance.assign_scores()
 
-            time_guess = time_instance.time_guess()
+            time_instance.compute_time_guess()
 
-            # ADDITIONAL INSTANCE METHODS – which need to be specified outside of the update_data() method
+            # compare time guess to published_at
+            #time_instance.check_accuracy()
 
-                # time_guess = Time.analyze_text(tweet.count_dictionary)
-                    # this method gets the highest score from count_dictionary and assigns a time guess
-
-                # check_acuracy = Time.check_accuracy(tweet.time_guess)
-                    # compare time guess to published_at
-
-                # time_instance.save()
+            # time_instance.save()
 
             # then we update the object in the db with its scores
             Mongo.collection.insert_one({
-                "module": time_instance.module,
+                "module":        time_instance.module,
                 "published_at" : time_instance.published_at,
-                "content": time_instance.content,
-                "tweet_id": time_instance.tweet_id,
-                "score": count_dictionary
-                # "time_guess": time_guess,
+                "content":       time_instance.content,
+                "tweet_id":      time_instance.tweet_id,
+                "score":         time_instance.score,
+                "time_guess":    time_instance.time_guess
                 # "guess_is_accurate": "" - assign as empty string , method below will update to Boolean
             })
 
@@ -92,12 +97,15 @@ class Time:
                 if word in value:
                     keyword_score_dictionary[key] += 1
 
-        return keyword_score_dictionary
+        self.score = keyword_score_dictionary
 
     # this method gets the highest score from count_dictionary and assigns a time guess
-    # def time_guess(self):
-    #     return self.count_dictionary
-
+    def compute_time_guess(self):
+        v = list(self.score.values())
+        k = list(self.score.keys())
+        maxv = max(v)
+        if maxv > 0:
+            self.time_guess = k[v.index(max(v))]
 
         # check_acuracy = Time.check_accuracy(self)
             # compare time guess to published_at
