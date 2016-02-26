@@ -5,11 +5,10 @@ from datetime import datetime, timedelta
 
 class Influx:
     @classmethod
-    def recent_count(self, hours = 720):
+    def recent_count(self, hours = 24):
         start = datetime.today() - timedelta(hours = hours)
         end   = datetime.today()
-        pipe = [{"$match": {"module": "Influx", "published_at": {"$gte": start, "$lte": end}}}]
-        day_count = Mongo.collection.count(pipeline = pipe)
+        day_count = Mongo.collection.find({ "module":"Influx", "published_at": {"$gte": start, "$lte": end}}).count()
         return day_count
 
 
@@ -41,15 +40,27 @@ class Influx:
                 "published_at": tweet.created_at,
                 "content": tweet.text,
                 "tweet_id": tweet.id,
-            # "score": percentage
             })
         return len(tweets)
 
     @classmethod
     def score(self):
-        if self.recent_count() > self.average():
-            print("The Amount of People Moving to Seattle is Higher Than Normal: Current Count = (#self.recent_count)")
-        elif self.recent_count() < self.average():
-            print("The Amount of People Moving to Seattle is Lower Than Normal: Current Count   =  (#self.recent_count)")
+        update_data = self.update_data()
+        average = self.average()
+        average_score = ((average + update_data)/10) + (((average + update_data)/10) % 10 > 0)
+        #tweepy counts 10 days in past, and why divided by 10
+        # added the second modulus formula in average_score to round up the float number originally given in "average_score"
+        return int(average_score)
+
+    @classmethod
+    def score_calc(self):
+        recent_count = self.recent_count()
+        average_score = self.score()
+
+        if recent_count > average_score:
+            # %s replaces this value with the following %value outside of the string
+            return("The Amount of People Moving to Seattle Today is Higher Than Normal: Current Count = %s" %recent_count)
+        elif recent_count < average_score:
+            return("The Amount of People Moving to Seattle is Lower Than Normal: Current Count  = %s" %recent_count)
         else:
-            print("The Amount of People Moving to Seattle is the Same as Normal: Current Count = (#self.recent_count)")
+            return("The Amount of People Moving to Seattle is the Same as Normal: Current Count = %s" %recent_count)

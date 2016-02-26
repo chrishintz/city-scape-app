@@ -5,33 +5,61 @@
     <title>Cityscape</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}static/js/index.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}static/js/happy.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}static/js/pets.js"></script>
-    <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}static/js/traffic.js"></script>
     <link type="text/css" href="{{ STATIC_URL }}static/compiled_css/app.css" rel="stylesheet"></script>
+    <link href='https://fonts.googleapis.com/css?family=Codystar' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat+Subrayada:700' rel='stylesheet' type='text/css'>
   </head>
   <body>
+    <div class="header">
+      <h1>Seattle via Twitter</h1>
+    </div>
     <div class="container">
       <div class="header">
         <div class="nav-bar">
         </div>
       </div>
-      <div class="snapshot">
-        <!-- placeholder text. Shows 'Jinja2 syntax' -->
-        {{1 + 1}}
-        <canvas id="mycanvas" width="256" height="256"></canvas>
-        <div id="petchart" width="256" height="256"></div>
-      </div>
       <div class="bourbon-neat-test">
-        <div class="test-6-column">
-          <h1>BOURBON/NEAT TEST 1</h1>
-        </div>
-        <div class="test-6-column">
-          <!-- <h2>{{ weather }}</h2> -->
+        <div class="test-6-column weather">
+          <h2>Current Weather</h2>
           <img src="{{ STATIC_URL }}static/images/weather/{{ weather }}">
         </div>
+        <div class="test-6-column" id="traffic-chart-container" data-traffic="{{ traffic }}">
+        </div>
+        <div class="test-6-column happy">
+          <h2>Current Mood</h2>
+          <canvas id="mycanvas" width="256" height="256"></canvas>
+          <img id="happy" src="{{ STATIC_URL }}static/images/happy/{{image}}">
+        </div>
+        <div class = "test-6-column influx">
+          <h2>Average Amount of People Moving to Seattle</h2>
+          <img src="static/images/influx/peopletravel.jpg">
+            <ul>
+              <li>The Average Amount of People who are moving to Seattle, Per Day, is: {{influx}} people</li>
+              <li>(Results Based off 10 days worth of Data)</li>
+              <li>{{influx_calc}}</li>
+            </ul>
+        </div>
+        <div class="test-6-column time">
+          <h2>Time Section</h2>
+        </div>
+        <div class="test-6-column pets">
+          <h2>Pets Section</h2>
+            <div id="petchart" width="256" height="256"></div>
+          </div>
+        </div>
       </div>
+
+      <!-- <div id="traffic-chart-container" data-traffic="{{ traffic }}" style="min-width: 310px; max-width: 400px;   height: 300px; margin: 0 auto">
+      </div> -->
+
       <div class="footer">
       </div>
     </div>
