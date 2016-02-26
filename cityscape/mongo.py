@@ -1,12 +1,21 @@
 from pymongo import MongoClient
+import os
 
 class Mongo:
 
     # connecting code below to mongo database server
-    client = MongoClient()
+    if os.environ.get("MONGOLAB_URI"):
+        client = MongoClient(os.environ.get("MONGOLAB_URI"))
+        db = client['heroku_bw0c99x4']
+    else:
+        client = MongoClient('mongodb://localhost:27017/')
+        db = client['cityscape']
+
+
+    # mongolab_uri = os.environ.get("MONGOLAB_URI")
     # tells mongo database server to create new database called 'test_database'
     # mongo server returns database object called 'db'
-    db = client['cityscape']
+
     # tells mongo database server to create new collection (a.k.a. table) called 'test_collection' inside 'test_database'
     # mongo server returns collection object called 'collection'
     collection = db['tweet_stats']

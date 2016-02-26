@@ -38,6 +38,7 @@ body {
     .bourbon-neat-test .test-6-column:nth-child(2n+1) {
       clear: left; }
 
+
 .header {
   font-size: 30px;
   text-align: center;
@@ -109,6 +110,13 @@ body {
   text-align: center;
   color: #DFDCE3;
   font-family: "Codystar", cursive;
+  #petchart {
+    width: 256px;
+    height: 256px;
+    margin: 0 auto;
+    background-color: white;
+    margin-bottom: 30px;
+  }
 }
 
 .test-6-column.time {

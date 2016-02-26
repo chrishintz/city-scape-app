@@ -5,19 +5,34 @@ from datetime import datetime, timedelta
 
 class Pets:
 
-    @classmethod
-    def average(self):
-        pipe = [{"$match": {"module": "Pets"}}, {'$group': {'_id': None, 'total': {'$avg': '$score'}}}]
-        agg = Mongo.collection.aggregate(pipeline=pipe)
-        return list(agg)
+    # @classmethod
+    # def chart(self):
+    #     pet_score = Pets.average()
+    #     return pet_score
 
     @classmethod
-    def recent_average(self, hours=24):
-        start = datetime.today() - timedelta(hours = hours)
-        end   = datetime.today()
-        pipe  = [{"$match": {"module": "Pets", "published_at": {"$gte": start, "$lte": end}}}, {'$group': {'_id': None, 'total': {'$avg': '$score'}}}]
-        agg   = Mongo.collection.aggregate(pipeline=pipe)
-        return list(agg)
+    def average(self):
+        week_ago = datetime.today() - timedelta(days = 7)
+        pipe = [{"$match": {"module": "Pets", "published_at": {"$gte": week_ago}}},
+                {'$group': {'_id': {
+                    "dayOfYear": {"$dayOfYear": "$published_at"},
+                    "dayOfWeek": {"$dayOfWeek": "$published_at"},
+                    "dayOfMonth": {"$dayOfMonth": "$published_at"},
+                }, 'total': {'$avg': '$score'}}}, {'$sort': {"published_at.dayOfYear": -1}}]
+        agg = Mongo.collection.aggregate(pipeline=pipe)
+        # return list(agg)
+        return sorted(list(agg), key = lambda date: date["_id"]["dayOfYear"])
+
+    # @classmethod
+    # def recent_average(self, hours=24):
+    #     start = datetime.today() - timedelta(hours = hours)
+    #     end   = datetime.today()
+    #     pipe  = [{"$match": {"module": "Pets",
+    #     "published_at": {"$gte": start, "$lte": end}}},
+    #     {'$group': {'_id': None, dayOfYear: { '$dayOfYear': "$published_at"},
+    #     dayOfWeek: { '$dayOfWeek': "$published_at" }, 'total': {'$avg': '$score'}}}]
+    #     agg   = Mongo.collection.aggregate(pipeline=pipe)
+    #     return list(agg)
 
     @classmethod
     def update_data(self):
