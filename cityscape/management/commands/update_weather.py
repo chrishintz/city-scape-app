@@ -4,4 +4,5 @@ from cityscape.weather import Weather
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        print("test")
+        print("Refreshing Weather data...")
+        Weather.update_data()
