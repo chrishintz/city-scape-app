@@ -14,13 +14,16 @@ class Time:
         "late" :     ["midnight","dark"]
     }
 
-    def __init__(self, module, published_at, content, tweet_id, score = None, time_guess = None):
-        self.module       = module
-        self.published_at = published_at
-        self.content      = content
-        self.tweet_id     = tweet_id
-        self.score        = score
-        self.time_guess   = time_guess
+    def __init__(self, module, published_at, content, tweet_id, score = None, time_guess = None, actual_timeframe = None, accurate_guess = None):
+        self.module           = module
+        self.published_at     = published_at
+        self.content          = content
+        self.tweet_id         = tweet_id
+        self.score            = score
+        self.time_guess       = time_guess
+        self.actual_timeframe = actual_timeframe
+        self.accurate_guess   = accurate_guess
+
 
     @classmethod
     def find(self, tweet_id):
@@ -28,12 +31,14 @@ class Time:
 
         instance = Mongo.collection.find_one({"module":"Time", "tweet_id": tweet_id})
         t = Time(
-            module       = "Time",
-            published_at = instance["published_at"],
-            content      = instance["content"],
-            tweet_id     = instance["tweet_id"],
-            score        = instance["score"],
-            time_guess   = instance["time_guess"]
+            module           = "Time",
+            published_at     = instance["published_at"],
+            content          = instance["content"],
+            tweet_id         = instance["tweet_id"],
+            score            = instance["score"],
+            time_guess       = instance["time_guess"],
+            actual_timeframe = instance["actual_timeframe"],
+            accurate_guess   = instance["accurate_guess"]
         )
         return t
 
@@ -60,31 +65,35 @@ class Time:
                 tweet_id     = tweet.id
             )
 
-            # use the assign_scores instance method to assign #'s for time-related keywords
             time_instance.assign_scores()
 
             time_instance.compute_time_guess()
 
-            # compare time guess to published_at
-            #time_instance.check_accuracy()
+            time_instance.check_accuracy()
 
             # time_instance.save()
 
             # then we update the object in the db with its scores
             Mongo.collection.insert_one({
-                "module":        time_instance.module,
-                "published_at" : time_instance.published_at,
-                "content":       time_instance.content,
-                "tweet_id":      time_instance.tweet_id,
-                "score":         time_instance.score,
-                "time_guess":    time_instance.time_guess
-                # "guess_is_accurate": "" - assign as empty string , method below will update to Boolean
+                "module":           time_instance.module,
+                "published_at" :    time_instance.published_at,
+                "content":          time_instance.content,
+                "tweet_id":         time_instance.tweet_id,
+                "score":            time_instance.score,
+                "time_guess":       time_instance.time_guess,
+                "actual_timeframe": time_instance.actual_timeframe,
+                "accurate_guess":   time_instance.accurate_guess
             })
 
         return True
 
+    # @classmethod
+    # def guess_what_time(self):
+        # compare count of all tweets from last 3 hours, grouped by time_guess
+        # largest count is the educated guess for time of day
+        # return output so that it is available in view (i.e. "morning")
+
     # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX INSTANCE METHODS
-    # (don't need to take arguments)
 
     def assign_scores(self):
         keyword_score_dictionary = {}
@@ -107,20 +116,23 @@ class Time:
         if maxv > 0:
             self.time_guess = k[v.index(max(v))]
 
-        # check_acuracy = Time.check_accuracy(self)
-            # compare time guess to published_at
+    def check_accuracy(self):
+        # this converts the published_at time to an integer; -8 is UTC to PST
+        # conversion – so this would have to be updated later for other timezones.
+        pub_hour = self.published_at.hour - 8
 
-        # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX CLASS METHODS
-        # add @classmethods for score/accuracy later
+        if 0 <= pub_hour < 4:
+            self.actual_timeframe = "late"
+        elif 4 <= pub_hour < 6:
+            self.actual_timeframe = "early"
+        elif 6 <= pub_hour < 12:
+            self.actual_timeframe = "morning"
+        elif 12 <= pub_hour < 18:
+            self.actual_timeframe = "afternoon"
+        else:
+            self.actual_timeframe = "night"
 
-        # @classmethod
-        # def guess_what_time(self):
-            # compare count of all tweets from last 3 hours, grouped by time_guess
-            # largest count is the educated guess for time of day
-            # return output so that it is available in view (i.e. "morning")
-
-        # @classmethod
-        # def time_accuracy_check(self):
-            # for all the tweets that have been saved in the Time module,
-            # update their guess_is_accurate with True or False, based on
-            # comparison of time_guess vs published_at
+        if self.actual_timeframe == self.time_guess:
+            self.accurate_guess = True
+        else:
+            self.accurate_guess = False
