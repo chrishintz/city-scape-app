@@ -1,4 +1,4 @@
-{from cityscape.tweet import Tweet
+from cityscape.tweet import Tweet
 from cityscape.mongo import Mongo
 import pymongo
 from datetime import datetime, timedelta
