@@ -7,11 +7,16 @@ import re
 class Time:
 
     dictionary = {
-        "early":     ["early","insomnia"],
-        "morning":   ["morning", "breakfast", "awake"],
-        "afternoon": ["afternoon","lunch"],
-        "evening":   ["night", "dinner", "tired"],
-        "late" :     ["midnight","dark"]
+        # 4am - 6am
+        "early":     ["early","insomnia", "insomniac", "zombie"],
+        # 6am - noon
+        "morning":   ["morning", "breakfast", "awake", "sunrise", "wake up", "coffee"],
+        # noon - 6pm
+        "afternoon": ["afternoon","lunch", "happy hour", "after work", "after school"],
+        # 6pm - 12am
+        "evening":   ["evening", "night", "dinner", "tired", "bedtime", "sunset", "cocktail", "drinks"],
+        # 12am - 4am
+        "late" :     ["late", "midnight", "dark", "can't sleep", "rave"]
     }
 
     def __init__(self, module, published_at, content, tweet_id, score = None, time_guess = None, actual_timeframe = None, accurate_guess = None):
