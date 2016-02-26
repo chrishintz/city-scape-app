@@ -73,7 +73,6 @@ class Time:
 
             # time_instance.save()
 
-            # then we update the object in the db with its scores
             Mongo.collection.insert_one({
                 "module":           time_instance.module,
                 "published_at" :    time_instance.published_at,
@@ -87,11 +86,33 @@ class Time:
 
         return True
 
-    # @classmethod
-    # def guess_what_time(self):
-        # compare count of all tweets from last 3 hours, grouped by time_guess
-        # largest count is the educated guess for time of day
-        # return output so that it is available in view (i.e. "morning")
+    @classmethod
+    def guess_the_time(self):
+        # just grab tweets from the last 3 hours (using since_id?)
+        now = datetime.now()
+        earlier = datetime.now() - timedelta(hours=3)
+
+        last_three_hours = Mongo.collection.find({"module":"Time","published_at": {'$gte': earlier, '$lt': now}})
+        return last_three_hours
+
+        # make a dictionary of all time_guesses
+        # overall_time_guess = {
+        #     "morning": Mongo.collection.find({"module":"Time","time_guess":"morning"}).count(),
+        #     "afternoon": Mongo.collection.find({"module":"Time","time_guess":"afternoon"}).count(),
+        #     "evening": Mongo.collection.find({"module":"Time","time_guess":"evening"}).count(),
+        #     "late": Mongo.collection.find({"module":"Time","time_guess":"late"}).count(),
+        #     "early": Mongo.collection.find({"module":"Time","time_guess":"early"}).count()
+        # }
+        #
+        # # do max value search on the dictionary
+        # v = list(overall_time_guess.values())
+        # k = list(overall_time_guess.keys())
+        # maxv = max(v)
+        # if maxv > 0:
+        #     overall_time_guess = k[v.index(max(v))]
+        #
+        # return overall_time_guess
+        # return whichever one gets the highest count
 
     # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX INSTANCE METHODS
 
