@@ -2,8 +2,6 @@ $(document).ready(function() {
 
 
 
-  $.get("/traffic", function (traffic) {
-
     $('#traffic-chart-container').highcharts({
 
         chart: {
@@ -105,6 +103,6 @@ $(document).ready(function() {
 
 
     );
-  });
+
 
 });
