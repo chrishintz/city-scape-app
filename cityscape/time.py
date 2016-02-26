@@ -24,7 +24,6 @@ class Time:
         self.actual_timeframe = actual_timeframe
         self.accurate_guess   = accurate_guess
 
-
     @classmethod
     def find(self, tweet_id):
         self.tweet_id = tweet_id
@@ -53,7 +52,7 @@ class Time:
 
         tweets = Tweet.search(
             "-filter:links -filter:retweets geocode:47.609403608607785,-122.35061645507812,300mi",
-            count=1000,
+            count=2000,
             since_id=since_id
         )
 
@@ -88,34 +87,47 @@ class Time:
 
     @classmethod
     def guess_the_time(self):
-        # just grab tweets from the last 3 hours (using since_id?)
+        # returns a cursor object that contains however many tweets are from the last 3h
         now = datetime.now()
         earlier = datetime.now() - timedelta(hours=3)
+        last_three_hours = Mongo.collection.find(
+            {"module":"Time","published_at":
+                {'$gte': earlier, '$lt': now}
+            }
+        )
+        # return last_three_hours
 
-        last_three_hours = Mongo.collection.find({"module":"Time","published_at": {'$gte': earlier, '$lt': now}})
-        return last_three_hours
+        # create a dictionary of *ONLY* time-relevant tweets *JUST* from last 3h
+        overall_time_guess_dict = {}
 
-        # make a dictionary of all time_guesses
-        # overall_time_guess = {
-        #     "morning": Mongo.collection.find({"module":"Time","time_guess":"morning"}).count(),
-        #     "afternoon": Mongo.collection.find({"module":"Time","time_guess":"afternoon"}).count(),
-        #     "evening": Mongo.collection.find({"module":"Time","time_guess":"evening"}).count(),
-        #     "late": Mongo.collection.find({"module":"Time","time_guess":"late"}).count(),
-        #     "early": Mongo.collection.find({"module":"Time","time_guess":"early"}).count()
-        # }
-        #
-        # # do max value search on the dictionary
-        # v = list(overall_time_guess.values())
-        # k = list(overall_time_guess.keys())
-        # maxv = max(v)
-        # if maxv > 0:
-        #     overall_time_guess = k[v.index(max(v))]
-        #
-        # return overall_time_guess
-        # return whichever one gets the highest count
+        for key in Time.dictionary:
+            overall_time_guess_dict[key] = 0
+
+        for tweet in last_three_hours:
+            if tweet["time_guess"]  == "morning":
+                overall_time_guess_dict["morning"] += 1
+            elif tweet["time_guess"] == "afternoon":
+                overall_time_guess_dict["afternoon"] += 1
+            elif tweet["time_guess"] == "evening":
+                overall_time_guess_dict["evening"] += 1
+            elif tweet["time_guess"] == "late":
+                overall_time_guess_dict["late"] += 1
+            elif tweet["time_guess"] == "early":
+                overall_time_guess_dict["early"] += 1
+
+        # do max value search on the dictionary
+        v = list(overall_time_guess_dict.values())
+        k = list(overall_time_guess_dict.keys())
+        maxv = max(v)
+        if maxv > 0:
+            overall_time_guess = k[v.index(max(v))]
+
+        # return whichever key gets the highest count – this is the ultimate time guess for Time class!
+        return overall_time_guess
 
     # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX INSTANCE METHODS
 
+    # assign 1 point for each keyword that suggests when tweet was made
     def assign_scores(self):
         keyword_score_dictionary = {}
 
@@ -129,7 +141,8 @@ class Time:
 
         self.score = keyword_score_dictionary
 
-    # this method gets the highest score from count_dictionary and assigns a time guess
+    # this method gets the highest score from a single tweet's count_dictionary
+    # and assigns a time guess
     def compute_time_guess(self):
         v = list(self.score.values())
         k = list(self.score.keys())
@@ -137,6 +150,7 @@ class Time:
         if maxv > 0:
             self.time_guess = k[v.index(max(v))]
 
+    # check accuracy of time guess by comparing guess to actual time created
     def check_accuracy(self):
         # this converts the published_at time to an integer; -8 is UTC to PST
         # conversion – so this would have to be updated later for other timezones.
