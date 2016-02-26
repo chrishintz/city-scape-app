@@ -1,9 +1,12 @@
 from pymongo import MongoClient
+import os
 
 class Mongo:
 
     # connecting code below to mongo database server
-    client = MongoClient()
+    client = MongoClient(os.environ.get("MONGOLAB_URI"))
+
+    # mongolab_uri = os.environ.get("MONGOLAB_URI")
     # tells mongo database server to create new database called 'test_database'
     # mongo server returns database object called 'db'
     db = client['cityscape']
