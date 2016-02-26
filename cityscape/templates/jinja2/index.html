@@ -45,11 +45,17 @@
           <canvas id="mycanvas" width="256" height="256"></canvas>
           <img id="happy" src="{{ STATIC_URL }}static/images/happy/{{image}}">
         </div>
-        <div class="test-6-column time">
-          <h2>Time of Day Section</h2>
+        <div class = "test-6-column influx">
+          <h2>Average Amount of People Moving to Seattle</h2>
+          <img src="static/images/influx/peopletravel.jpg">
+            <ul>
+              <li>The Average Amount of People who are moving to Seattle, Per Day, is: {{influx}} people</li>
+              <li>(Results Based off 10 days worth of Data)</li>
+              <li>{{influx_calc}}</li>
+            </ul>
         </div>
-        <div class="test-6-column influx">
-          <h2>Influx Section</h2>
+        <div class="test-6-column time">
+          <h2>Time Section</h2>
         </div>
         <div class="test-6-column pets">
           <h2>Pets Section</h2>

@@ -8,7 +8,7 @@ class Influx:
     def recent_count(self, hours = 24):
         start = datetime.today() - timedelta(hours = hours)
         end   = datetime.today()
-        day_count = Mongo.collection.find({ "published_at": {"$gte": start, "$lte": end}}).count()
+        day_count = Mongo.collection.find({ "module":"Influx", "published_at": {"$gte": start, "$lte": end}}).count()
         return day_count
 
 
@@ -47,9 +47,10 @@ class Influx:
     def score(self):
         update_data = self.update_data()
         average = self.average()
-        average_score = (average + update_data)/10
-        #tweepy counts 10 days in past
-        return average_score
+        average_score = ((average + update_data)/10) + (((average + update_data)/10) % 10 > 0)
+        #tweepy counts 10 days in past, and why divided by 10
+        # added the second modulus formula in average_score to round up the float number originally given in "average_score"
+        return int(average_score)
 
     @classmethod
     def score_calc(self):
@@ -57,7 +58,7 @@ class Influx:
         average_score = self.score()
 
         if recent_count > average_score:
-            # %s replaces this value with the following value outside of the string
+            # %s replaces this value with the following %value outside of the string
             return("The Amount of People Moving to Seattle Today is Higher Than Normal: Current Count = %s" %recent_count)
         elif recent_count < average_score:
             return("The Amount of People Moving to Seattle is Lower Than Normal: Current Count  = %s" %recent_count)
