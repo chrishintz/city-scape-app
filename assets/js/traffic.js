@@ -15,7 +15,13 @@ $(document).ready(function() {
         },
 
         title: {
-            text: 'Current Seattle Traffic'
+            text: 'Current Seattle Traffic',
+            style: {
+              color: "#DFDCE3",
+              fontFamily: "Codystar, cursive",
+              fontSize: "25px",
+              fontWeight: "bold"
+            }
         },
 
         pane: {
