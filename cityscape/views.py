@@ -21,7 +21,7 @@ def chart(request):
     return JsonResponse(Happy.chart(), safe=False)
 
 def pet_score(request):
-    return JsonResponse(Pets.recent_average(), safe=False)
+    return JsonResponse(Pets.average(), safe=False)
 
 def influx(request):
     return JsonResponse({"module": "Influx"})

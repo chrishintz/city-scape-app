@@ -1,6 +1,6 @@
 from cityscape.tweet import Tweet
 
-class Yelling:
+class Yell:
 
     def __init__(self, tweets):
         self.tweets = tweets

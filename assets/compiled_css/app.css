@@ -32,4 +32,12 @@ body {
     .bourbon-neat-test .test-6-column:nth-child(2n+1) {
       clear: left; }
 
+#petchart {
+  width: 256px;
+  height: 256px;
+  margin: 0 auto;
+  background-color: white;
+  margin-bottom: 30px;
+}
+
 /*# sourceMappingURL=app.css.map */
