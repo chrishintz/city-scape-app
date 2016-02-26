@@ -94,7 +94,7 @@ $(document).ready(function() {
         },
 
         series: [{
-            name: 'Speed',
+            name: 'traffic level',
             data: [$("#traffic-chart-container").data("traffic")],
 
         }]
