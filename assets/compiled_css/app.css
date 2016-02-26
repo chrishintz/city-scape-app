@@ -5,7 +5,7 @@ html {
   box-sizing: inherit; }
 
 body {
-  background: pink; }
+  background: #4ABDAC; }
 
 .container {
   max-width: 68em;
@@ -38,17 +38,36 @@ body {
     .bourbon-neat-test .test-6-column:nth-child(2n+1) {
       clear: left; }
 
-#chart-container {
-  width: 100%;
-  margin: 0 auto;
-  display: block; }
+.header {
+  font-size: 30px;
+  text-align: center;
+  color: #FC4A1A;
+  /*font-family: 'Raleway Dots', cursive;*/
+  font-family: 'Montserrat Subrayada', sans-serif;
+}
+
+.test-6-column.weather {
+  background-color: #4ABDAC;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #DFDCE3;
+  font-family: "Codystar", cursive;
+}
+
+.test-6-column.happy {
+  background-color: #4ABDAC;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #DFDCE3;
+  font-family: "Codystar", cursive;
+}
 
 .happy {
-  float: left;
+  /*float: left;
   display: block;
-  margin-right: 2.35765%;
+  margin-right: 2.35765%;*/
   width: 48.82117%;
-  background: #EFF8FF;
+  /*background: #EFF8FF;*/
   position: relative; }
   .happy:last-child {
     margin-right: 0; }
@@ -56,14 +75,49 @@ body {
     position: relative; }
   .happy img {
     position: absolute;
-    left: 28px;
-    top: 59px; }
+    left: 165px;
+    top: 120px; }
   .happy .happy-face {
-    top: 40px;
-    left: 52px; }
+    top: 113px;
+    left: 191px; }
   .happy .neutral-face {
     border-radius: 250px;
-    top: 60px;
-    left: 63px; }
+    top: 133px;
+    left: 203px;
+    text-align: center; }
+
+#chart-container {
+  width: 100%;
+  margin: 0 auto;
+  display: block; }
+
+.highcharts-background {
+  fill: #4ABDAC;
+}
+
+.test-6-column.influx {
+  background-color: #4ABDAC;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #DFDCE3;
+  font-family: "Codystar", cursive;
+}
+
+.test-6-column.pets {
+  background-color: #4ABDAC;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #DFDCE3;
+  font-family: "Codystar", cursive;
+}
+
+.test-6-column.time {
+  background-color: #4ABDAC;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #DFDCE3;
+  font-family: "Codystar", cursive;
+}
+
 
 /*# sourceMappingURL=app.css.map */
