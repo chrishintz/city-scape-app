@@ -61,6 +61,6 @@ class Influx:
             # %s replaces this value with the following %value outside of the string
             return("The Amount of People Moving to Seattle Today is Higher Than Normal: Current Count = %s" %recent_count)
         elif recent_count < average_score:
-            return("The Amount of People Moving to Seattle is Lower Than Normal: Current Count  = %s" %recent_count)
+            return("The Amount of People Moving to Seattle Today is Lower Than Normal: Current Count  = %s" %recent_count)
         else:
-            return("The Amount of People Moving to Seattle is the Same as Normal: Current Count = %s" %recent_count)
+            return("The Amount of People Moving to Seattle Today is the Same as Normal: Current Count = %s" %recent_count)
