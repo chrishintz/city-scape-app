@@ -10,6 +10,7 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}static/js/index.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}static/js/happy.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}static/js/pets.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}static/js/traffic.js"></script>
     <link type="text/css" href="{{ STATIC_URL }}static/compiled_css/app.css" rel="stylesheet"></script>
     <link href='https://fonts.googleapis.com/css?family=Codystar' rel='stylesheet' type='text/css'>
@@ -25,14 +26,6 @@
         <div class="nav-bar">
         </div>
       </div>
-      <!-- <div class="snapshot">
-        placeholder text. Shows 'Jinja2 syntax'
-        {{1 + 1}}
-      </div> -->
-      <!-- <div class="happy">
-        <canvas id="mycanvas" width="256" height="256"></canvas>
-        <img id="happy" src="{{ STATIC_URL }}static/images/happy/{{image}}">
-      </div> -->
       <div class="bourbon-neat-test">
         <div class="test-6-column weather">
           <h2>Current Weather</h2>
@@ -59,6 +52,8 @@
         </div>
         <div class="test-6-column pets">
           <h2>Pets Section</h2>
+            <div id="petchart" width="256" height="256"></div>
+          </div>
         </div>
       </div>
 

@@ -27,4 +27,8 @@ def chart(request):
 
 
 def pet_score(request):
-    return JsonResponse(Pets.recent_average(), safe=False)
+    return JsonResponse(Pets.average(), safe=False)
+
+def influx(request):
+    return JsonResponse({"module": "Influx"})
+    # put in mongodb object in jsonresponse
