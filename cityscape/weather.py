@@ -73,11 +73,11 @@ class Weather:
                 total_count_dictionary[key] += value
 
         return max(total_count_dictionary, key=total_count_dictionary.get)
-        # return(total_count_dictionary)
+        print(total_count_dictionary)
 
     @classmethod
     def extract_wind_in_mph(self, tweet_content):
-        result = re.search("wind (.+?)mph", tweet_content)
+        result = re.search("wind (\d+)mph", tweet_content)
 
         if result:
             return int(result.group(1))
