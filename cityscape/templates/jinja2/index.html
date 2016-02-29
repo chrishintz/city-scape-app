@@ -49,13 +49,16 @@
             </ul>
         </div>
         <div class="test-6-column time">
-          <h2>Time Section</h2>
+          <h2>Time of Day:</h2>
+          <div id="time-img-text">
+            <img src="{{ STATIC_URL }}static/images/time/{{ time_img }}">
+            <h3>{{ time }}</h3>
+          </div>
         </div>
         <div class="test-6-column pets">
           <h2>Pets Section</h2>
-    <div id="petchart" width="256" height="256"></div>
+            <div id="petchart" width="256" height="256"></div>
           </div>
-
         </div>
       </div>
 

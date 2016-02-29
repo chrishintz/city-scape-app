@@ -8,12 +8,13 @@ from cityscape.influx import Influx
 from cityscape.traffic import Traffic
 from cityscape.mongo import Mongo
 from cityscape.weather import Weather
+from cityscape.time import Time
 
 
 def index(request):
     env = Environment(loader=PackageLoader('cityscape', 'templates'))
     template = env.get_template('jinja2/index.html')
-    return HttpResponse(template.render(influx_calc = Influx.score_calc(),influx =Influx.score(), traffic = Traffic.comparison(), weather = ''.join((Weather.current_weather(), ".png")), image = Happy.chart()["image"]))
+    return HttpResponse(template.render(influx_calc = Influx.score_calc(),influx =Influx.score(), traffic = Traffic.comparison(), weather = ''.join((Weather.current_weather(), ".png")), image = Happy.chart()["image"], time = Time.guess_time(), time_img = ''.join((Time.guess_time(), ".png"))))
 
 # def traffic(request):
 #     env = Environment(loader=PackageLoader('cityscape', 'templates'))
@@ -24,7 +25,6 @@ def index(request):
 
 def chart(request):
     return JsonResponse(Happy.chart(), safe=False)
-
 
 def pet_score(request):
     return JsonResponse(Pets.average(), safe=False)

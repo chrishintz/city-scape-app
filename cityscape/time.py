@@ -10,9 +10,9 @@ class Time:
         # 4am - 6am
         "early":     ["early","insomnia", "insomniac", "zombie"],
         # 6am - noon
-        "morning":   ["morning", "breakfast", "awake", "sunrise", "wake up", "coffee"],
+        "morning":   ["morning", "breakfast", "awake", "sunrise", "wake up"],
         # noon - 6pm
-        "afternoon": ["afternoon","lunch", "happy hour", "after work", "after school"],
+        "afternoon": ["afternoon","lunch", "happy hour", "after work", "after school", "tonight"],
         # 6pm - 12am
         "evening":   ["evening", "night", "dinner", "tired", "bedtime", "sunset", "cocktail", "drinks"],
         # 12am - 4am
@@ -57,7 +57,7 @@ class Time:
 
         tweets = Tweet.search(
             "-filter:links -filter:retweets geocode:47.609403608607785,-122.35061645507812,300mi",
-            count=2000,
+            count=20000,
             since_id=since_id
         )
 
@@ -91,7 +91,7 @@ class Time:
         return True
 
     @classmethod
-    def guess_the_time(self):
+    def guess_time(self):
         # returns a cursor object that contains however many tweets are from the last 3h
         now = datetime.now()
         earlier = datetime.now() - timedelta(hours=3)
