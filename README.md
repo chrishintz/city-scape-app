@@ -51,7 +51,7 @@
  - cd into project directory
  - `gem install sass`
  - To use it:
-   - To run the compiler type this: `sass --watch assets/sass/app.scss:assets/compiled_css/app.css`
+   - To run the compiler type this: `sass --watch city_scape_project/assets/sass/app.scss:city_scape_projects/assets/compiled_css/app.css`
     - keep it running while you make changes in the
       scss files so you can see the changes reflected in the browser. **NB: you have to start this every time you start up your project, if you want SASS changes to be reflected.**
    - New SASS files go under `assets/sass`
