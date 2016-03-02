@@ -28,6 +28,13 @@ body {
   color: #DFDCE3;
   font-family: "Codystar", cursive; }
 
+.test-6-column.happy h2 {
+  font-family: "Codystar", cursive; }
+
+.test-6-column.weather h2 {
+  font-family: "Codystar", cursive;
+  margin-top: 5px; }
+
 .container {
   max-width: 68em;
   margin-left: auto;
@@ -45,19 +52,20 @@ body {
     clear: both;
     content: "";
     display: table; }
-  .bourbon-neat-test .test-6-column {
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 48.82117%;
-    font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
-    background-color: #ababab; }
-    .bourbon-neat-test .test-6-column:last-child {
-      margin-right: 0; }
-    .bourbon-neat-test .test-6-column:nth-child(2n) {
-      margin-right: 0; }
-    .bourbon-neat-test .test-6-column:nth-child(2n+1) {
-      clear: left; }
+  @media (min-width: 768px) {
+    .bourbon-neat-test .test-6-column {
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 48.82117%;
+      font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+      margin-right: 10px; }
+      .bourbon-neat-test .test-6-column:last-child {
+        margin-right: 0; }
+      .bourbon-neat-test .test-6-column:nth-child(2n) {
+        margin-right: 0; }
+      .bourbon-neat-test .test-6-column:nth-child(2n+1) {
+        clear: left; } }
 
 .bourbon-neat-test img {
   width: 100%; }
@@ -76,6 +84,9 @@ body {
   text-align: center;
   color: #DFDCE3;
   font-family: "Codystar", cursive; }
+
+.test-6-column.influx li {
+  list-style-type: none; }
 
 .test-6-column.pets {
   background-color: #4ABDAC;

@@ -7,18 +7,19 @@
 
 .bourbon-neat-test {
   @include outer-container;
-
-  .test-6-column {
-    @include span-columns(6);
-    @include omega(2n);
-    font-family: $helvetica;
-    background-color: rgb(171, 171, 171);
+    @media (min-width: 768px) {
+      .test-6-column {
+     @include span-columns(6);
+     @include omega(2n);
+     font-family: $helvetica;
+    margin-right:10px;
+    }
   }
 }
-
 .bourbon-neat-test img{
   width:100%;
 }
+
 
 
 
@@ -37,6 +38,10 @@
    text-align: center;
    color: #DFDCE3;
    font-family: "Codystar", cursive;
+ }
+
+ .test-6-column.influx li{
+   list-style-type:none;
  }
 
  .test-6-column.pets {
