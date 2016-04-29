@@ -1,7 +1,5 @@
 # city-scape-app
 
-Check it out here: <http://city-scape-seattle.herokuapp.com/>
-
 ## Python and Django Installation
 
 1. type `brew install python3` in your terminal (for those that haven’t installed it yet)
