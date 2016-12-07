@@ -13,7 +13,11 @@ class Happy:
 
     @classmethod
     def chart(self):
-        ans = Happy.recent_average(1.5)[0]["total"] + 1
+        ans = Happy.recent_average(1.5)
+        if ans == []:
+            ans = Happy.recent_average()[0]["total"] + 1
+        else:
+            ans = ans[0]["total"] + 1
         percentage = ans/2 * 100
         # percentage = 20
         emptiness = 100 - percentage
