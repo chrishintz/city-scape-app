@@ -3,23 +3,30 @@
   background: #EFF8FF;
   position: relative;
 
-  canvas {
-    position: relative;
-  }
   img {
     position: absolute;
-    left: 28px;
-    top: 59px;
+    left: 165px;
+    top: 120px;
+    margin-top:-1px;
+    width:35%;
   }
 
   .happy-face {
-    top: 40px;
-    left: 52px;
+    top: 113px;
+    left: 191px;
+    margin-top:20px;
+    width:20%;
+    margin-left:20px;
   }
 
   .neutral-face {
     border-radius: 250px;
-    top: 60px;
-    left: 63px;
+    margin-bottom: -100px;
+    // left: 203px;
+    text-align:center;
+    margin-top:-10px;
+    width:30%;
+    margin-left:20px;
+
   }
 }
